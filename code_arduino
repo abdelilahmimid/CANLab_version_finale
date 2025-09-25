@@ -1,0 +1,101 @@
+#include <mcp_can.h>
+#include <SPI.h>
+
+// --- PARAMÈTRES UTILISATEUR ---
+const byte CAN_SPEED = CAN_500KBPS;
+const int SPI_CS_PIN = 10;
+// --- FIN DES PARAMÈTRES ---
+
+MCP_CAN CAN(SPI_CS_PIN);
+
+// Buffer pour la réception des commandes depuis le port série (méthode non-bloquante)
+static char command_buffer[60];
+static byte command_buffer_index = 0;
+
+
+void setup() {
+    Serial.begin(921600);
+    while (CAN.begin(MCP_ANY, CAN_SPEED, MCP_8MHZ) != CAN_OK) {
+        Serial.println("!!! Erreur: Initialisation du contrôleur CAN échouée.");
+        delay(1000);
+    }
+    CAN.setMode(MCP_NORMAL);
+    Serial.println("--- Interface CAN-Serial prête (Version Finale Non-Bloquante) ---");
+}
+
+
+void loop() {
+    // Tâche 1: Vérifier et transférer les messages CAN entrants (rapide)
+    checkAndForwardCanMessage();
+
+    // Tâche 2: Vérifier les commandes PC entrantes (non-bloquant)
+    checkAndSendCommand_NonBlocking();
+}
+
+void checkAndForwardCanMessage() {
+    long unsigned int rxId;
+    unsigned char len = 0;
+    unsigned char rxBuf[8];
+    char serialBuffer[60];
+    char* bufPtr = serialBuffer;
+
+    if (CAN_MSGAVAIL == CAN.checkReceive()) {
+        CAN.readMsgBuf(&rxId, &len, rxBuf);
+
+        bufPtr += sprintf(bufPtr, "%lX,%X", rxId, len);
+        for (int i = 0; i < len; i++) {
+            bufPtr += sprintf(bufPtr, ",%X", rxBuf[i]);
+        }
+        *bufPtr++ = '\n';
+        *bufPtr = '\0';
+        
+        Serial.print(serialBuffer);
+    }
+}
+
+void checkAndSendCommand_NonBlocking() {
+    while (Serial.available() > 0) {
+        char receivedChar = Serial.read();
+
+        if (receivedChar == '\n' || receivedChar == '\r') {
+            if (command_buffer_index > 0) {
+                command_buffer[command_buffer_index] = '\0';
+                processCommand(command_buffer);
+                command_buffer_index = 0;
+            }
+        } 
+        else {
+            if (command_buffer_index < sizeof(command_buffer) - 1) {
+                command_buffer[command_buffer_index++] = receivedChar;
+            } else {
+                command_buffer_index = 0;
+            }
+        }
+    }
+}
+
+void processCommand(char* command) {
+    if (command[0] != 'S' || command[1] != ':') {
+        return; // Pas une commande valide
+    }
+
+    char* idStr = strtok(command + 2, ",");
+    if (idStr == NULL) return;
+    
+    char* dlcStr = strtok(NULL, ",");
+    if (dlcStr == NULL) return;
+
+    long canId = strtol(idStr, NULL, 16);
+    byte dlc = atoi(dlcStr);
+    if (dlc > 8) dlc = 8;
+
+    byte data[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i < dlc; i++) {
+        char* dataByteStr = strtok(NULL, ",");
+        if (dataByteStr == NULL) break;
+        data[i] = strtol(dataByteStr, NULL, 16);
+    }
+    
+    bool isExtended = strlen(idStr) > 3;
+    CAN.sendMsgBuf(canId, isExtended, dlc, data);
+}

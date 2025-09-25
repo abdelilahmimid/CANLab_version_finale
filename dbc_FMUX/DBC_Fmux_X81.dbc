@@ -1,0 +1,894 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_:
+VAL_TABLE_ table_Presence_CRT 1 "Presente" 0 "Absente" ;
+VAL_TABLE_ table_presence_CRT 1 "Présente" 0 "Absente" ;
+VAL_TABLE_ table_presence_siege 2 "Siéges chauffants et ventilés" 1 "Siéges chauffants" 0 "Siéges absents" ;
+VAL_TABLE_ env_dsgn_simul_SYNCH_MOL_1 1 "Synchronisation non demandee" 0 "Synchronisation demandee" ;
+VAL_TABLE_ table_Puls_AR_Plus 15 "Non utilise" 14 "Non utilise" 13 "Non utilise" 12 "Non utilise" 11 "Non utilise" 10 "Non utilise" 9 "Vitesse8" 8 "Vitesse7" 7 "Vitesse6" 6 "Vitesse5" 5 "Vitesse4" 4 "Vitesse3" 3 "Vitesse2" 2 "Vitesse1" 1 "Non utilise" 0 "Non utilise" ;
+VAL_TABLE_ table_Puls_AR_Moins 15 "Non utilise" 14 "Non utilise" 13 "Non utilise" 12 "Non utilise" 11 "Non utilise" 10 "Non utilise" 9 "Vitesse8" 8 "Vitesse7" 7 "Vitesse6" 6 "Vitesse5" 5 "Vitesse4" 4 "Vitesse3" 3 "Vitesse2" 2 "Vitesse1" 1 "Non utilise" 0 "Non utilise" ;
+VAL_TABLE_ table_DMD_NIV_TEMP_AVG_aff 22 "HI" 19 "Niveau 19" 18 "Niveau 18" 17 "Niveau 17" 16 "Niveau 16" 15 "Niveau 15" 14 "Niveau 14" 13 "Niveau 13" 12 "Niveau 12" 11 "Niveau 11" 10 "Niveau 10" 9 "Niveau 9" 8 "Niveau 8" 7 "Niveau 7" 6 "Niveau 6" 5 "Niveau 5" 4 "Niveau 4" 3 "Niveau 3" 2 "Niveau 2" 1 "Niveau 1" 0 "LO" ;
+VAL_TABLE_ table_CDE_ECL_CONNECT 1 "Allumé" 0 "Eteint" ;
+VAL_TABLE_ table_Type_clim 3 "RFT" 2 "RFTA" 1 "RF" 0 "CH" ;
+VAL_TABLE_ table_Puls_AV_Moins 15 "Non utilisé" 14 "Non utilisé" 13 "Non utilisé" 12 "Non utilisé" 11 "Non utilisé" 10 "Non utilisé" 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Non utilisé" 0 "Non utilisé" ;
+VAL_TABLE_ table_Puls_AV_Plus 15 "Non utilisé" 14 "Non utilisé" 13 "Non utilisé" 12 "Non utilisé" 11 "Non utilisé" 10 "Non utilisé" 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Non utilisé" 0 "Non utilisé" ;
+VAL_TABLE_ table_env_MODE_HY 7 "Invalide" 6 "Valeur non utilisée" 5 "Valeur non utilisée" 4 "Valeur non utilisée" 3 "ZEV" 2 "HY" 1 "Sport" 0 "4x4" ;
+VAL_TABLE_ table_env_UB_MODE_HY 2 "Invalide" 1 "Infos rafraîchies" 0 "Infos non rafraîchies" ;
+VAL_TABLE_ Distribution_avg 9 "Different de dégivrage" 8 "Pied Aeration degivrage" 7 "Aération dégivrage" 6 "Pied dégivrage" 5 "Pied aération" 4 "Dégivrage" 3 "Aéraion" 2 "Pied" 1 "Auto visibilité" 0 "Auto confort" ;
+VAL_TABLE_ Puls_av 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Vitesse 0" 0 "Auto" ;
+VAL_TABLE_ Entree_air 3 "Auto confort sans AQS" 2 "Forcée Fermée" 1 "Auto Visibilite" 0 "Auto confort" ;
+VAL_TABLE_ VAL_CONS_TEMP_AVG 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_TABLE_ Typage 2 "Fort" 1 "Normal" 0 "Leger" ;
+VAL_TABLE_ dmd_ac 2 "OFF" 1 "Auto Visibilité" 0 "Auto confort" ;
+VAL_TABLE_ mode_config_vhl 6 "APV" 5 "Show room" 4 "Client" 3 "Stockage / Transport" 2 "Controle" 1 "Usine" 0 "Montage" ;
+VAL_TABLE_ etat_reseau_elec 7 "TA_SECU" 6 "TA_DEGRADE" 5 "TA_NOMINAL" 4 "REDEMARRAGE" 3 "DEMARRAGE" 2 "TI_DISPO_DEM" 1 "TI_DEGRADE" 0 "TI_NOMINAL" ;
+VAL_TABLE_ type_dir 2 "Gauche" 1 "Droite" ;
+VAL_TABLE_ etat_gmp 3 "Moteur arrêté en phase de stop" 2 "Moteur tournant" 1 "Démarrage en cours" 0 "Moteur non tournant" ;
+VAL_TABLE_ etat_princip_sev 3 "Libre" 2 "DEM" 1 "Contact" 0 "Arrêt" ;
+VAL_TABLE_ phase_vie 4 "COM_OFF" 3 "Réveil" 2 "Mise en Veille" 1 "Mode Normal" 0 "Veille" ;
+VAL_TABLE_ cons_entree 2 "Recyclage total" 1 "Recyclage partiel" 0 "Air extérieur" ;
+VAL_TABLE_ cons_temp 7 "25°C " 6 "24°C " 5 "23°C " 4 "22°C " 3 "21°C  " 2 "20°C " 1 "19°C " 0 "18°C " ;
+
+
+
+
+EV_ env_sortie_distri_pied: 0 [0|0] "" 0 1 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_sortie_distri_aera: 0 [0|0] "" 0 2 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_sortie_distri_degi: 0 [0|0] "" 0 3 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_sortie_entree_aire: 0 [0|1] "" 0 4 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_VENTIL_AVG: 0 [0|1] "" 0 5 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_VENTIL_AVD: 0 [0|1] "" 0 6 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_mode_eco: 0 [0|1] "" 0 7 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_SORTIE_PUSH_STT: 0 [0|0] "" 0 8 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_presence_CRT: 0 [0|0] "" 0 9 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CONF_STT_DRIVER_INHIB: 0 [0|0] "" 0 10 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_presence_siege: 0 [0|0] "" 0 11 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_presence_sieges_clim: 0 [0|0] "" 0 12 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_IONIZER_off_fige: 0 [0|0] "" 0 13 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_IONIIZER_off: 0 [0|0] "" 0 14 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_CHAUF_AVD: 0 [0|0] "" 0 15 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_CHAUF_AVD_fig: 0 [0|0] "" 0 16 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_SIEGE_CHAUF_AVD: 0 [0|0] "" 0 17 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_CHAUF_AVG_fig: 0 [0|0] "" 0 18 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_SIEGE_CHAUF_AVG: 0 [0|0] "" 0 19 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_SIEGE_CHAUF_AVG: 0 [0|0] "" 0 20 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DMD_PUSH_OFF_fige: 0 [0|0] "" 0 21 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_PUSH_OFF: 0 [0|0] "" 0 22 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARD_fige: 0 [0|0] "" 0 23 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARD_simul: 0 [0|0] "" 0 24 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARD: 0 [0|0] "" 0 25 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARD_fige: 0 [0|0] "" 0 26 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARD_simul: 0 [0|0] "" 0 27 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARD: 0 [0|0] "" 0 28 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARD_fige: 0 [0|0] "" 0 29 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARD_simul: 0 [0|0] "" 0 30 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARD: 0 [0|0] "" 0 31 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARD_simul: 0 [0|0] "" 0 32 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARD_fige: 0 [0|0] "" 0 33 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARD: 0 [0|0] "" 0 34 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARD_fige: 0 [0|0] "" 0 35 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARD_simul: 0 [0|0] "" 0 36 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARD: 0 [0|0] "" 0 37 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARD_fige: 0 [0|0] "" 0 38 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARD_simul: 0 [0|0] "" 0 39 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARD: 0 [0|0] "" 0 40 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_RESP_ERROR_TDCARG_fige: 0 [0|0] "" 0 41 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_RESP_ERROR_TDCARG_simul: 0 [0|0] "" 0 42 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_RESP_ERROR_TDCARG: 0 [0|0] "" 0 43 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_MOINS_ARG_fige: 0 [0|0] "" 0 44 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_MOINS_ARG_simul: 0 [0|0] "" 0 45 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_MOINS_ARG: 0 [0|0] "" 0 46 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_PLUS_ARG_simul: 0 [0|0] "" 0 47 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_PLUS_ARG_fige: 0 [0|0] "" 0 48 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_PULS_PLUS_ARG: 0 [0|0] "" 0 49 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARG_fige: 0 [0|0] "" 0 50 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARG_simul: 0 [0|0] "" 0 51 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_MOINS_ARG: 0 [0|0] "" 0 52 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARG_fige: 0 [0|0] "" 0 53 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARG_simul: 0 [0|0] "" 0 54 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_TEMP_PLUS_ARG: 0 [0|0] "" 0 55 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_AUTO_ARG_simul: 0 [0|0] "" 0 56 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_AUTO_ARG_fige: 0 [0|0] "" 0 57 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_AUTO_ARG: 0 [0|0] "" 0 58 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARG_simul: 0 [0|0] "" 0 59 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARG_fige: 0 [0|0] "" 0 60 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AEPI_ARG: 0 [0|0] "" 0 61 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARG_fige: 0 [0|0] "" 0 62 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARG_simul: 0 [0|0] "" 0 63 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_DIST_AERA_ARG: 0 [0|0] "" 0 64 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_INTERNE_TDCARG_simul: 0 [0|0] "" 0 65 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_INTERNE_TDCARG_fige: 0 [0|0] "" 0 66 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_INTERNE_TDCARG: 0 [0|0] "" 0 67 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_LCD_ARG_fige: 0 [0|0] "" 0 68 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_LCD_ARG_simul: 0 [0|0] "" 0 69 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEF_LCD_ARG: 0 [0|0] "" 0 70 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CONS_PULS_ARG: 0 [0|0] "" 0 71 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DISTRIBUTION_ARD_LIN: 0 [0|0] "" 0 72 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DISTRIBUTION_ARG_LIN: 0 [0|0] "" 0 73 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARD_LIN: 0 [0|0] "" 0 74 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARG_LIN: 0 [0|0] "" 0 75 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARG_fige: 0 [0|0] "" 0 76 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARG_simul: 0 [0|0] "" 0 77 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CHGT_UTIL_MONO_ARG: 0 [0|0] "" 0 78 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARG_simul: 0 [0|0] "" 0 79 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARG_fige: 0 [0|0] "" 0 80 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ DMD_CONFIG_TDC_ARD: 0 [0|0] "" 0 81 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_CONFIG_TDC_ARG: 0 [0|0] "" 0 82 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_LUM_CLIM_AR_LCD: 0 [0|0] "" 0 83 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_LUM_CLIM_AR_3: 0 [0|0] "" 0 84 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_LUM_CLIM_AR_2: 0 [0|0] "" 0 85 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_LUM_CLIM_AR_1: 0 [0|0] "" 0 86 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARG_num: 1 [0|0] "" 0 87 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARG: 0 [0|0] "" 0 88 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARD_num: 1 [0|0] "" 0 89 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_ARD: 0 [0|0] "" 0 90 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_UB_ARG: 0 [0|0] "" 0 91 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_UB_ARD: 0 [0|0] "" 0 92 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_PULS_ARG: 0 [0|0] "" 0 93 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DISTRIBUTION_ARG: 0 [0|0] "" 0 94 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DISTRIBUTION_ARD: 0 [0|0] "" 0 95 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DISTRIBUTION_AVD: 0 [0|0] "" 0 96 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_perte_com_DSGN_fige: 0 [0|0] "" 0 97 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_perte_com_simul_DSGN: 0 [0|0] "" 0 98 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_31_fige: 0 [0|0] "" 0 99 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_30_fige: 0 [0|0] "" 0 100 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_29_fige: 0 [0|0] "" 0 101 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_28_fige: 0 [0|0] "" 0 102 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_27_fige: 0 [0|0] "" 0 103 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_26_fige: 0 [0|0] "" 0 104 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_25_fige: 0 [0|0] "" 0 105 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_23_fige: 0 [0|0] "" 0 106 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_24_fige: 0 [0|0] "" 0 107 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_22_fige: 0 [0|0] "" 0 108 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_21_fige: 0 [0|0] "" 0 109 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_20_fige: 0 [0|0] "" 0 110 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_19_fige: 0 [0|0] "" 0 111 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_18_fige: 0 [0|0] "" 0 112 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_17_fige: 0 [0|0] "" 0 113 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_16_fige: 0 [0|0] "" 0 114 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_15_fige: 0 [0|0] "" 0 115 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_14_fige: 0 [0|0] "" 0 116 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_13_fige: 0 [0|0] "" 0 117 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_12_fige: 0 [0|0] "" 0 118 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_11_fige: 0 [0|0] "" 0 119 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_10_fige: 0 [0|0] "" 0 120 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_9_fige: 0 [0|0] "" 0 121 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_8_fige: 0 [0|0] "" 0 122 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_7_fige: 0 [0|0] "" 0 123 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_6_fige: 0 [0|0] "" 0 124 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_5_fige: 0 [0|0] "" 0 125 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_4_fige: 0 [0|0] "" 0 126 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_3_fige: 0 [0|0] "" 0 127 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_2_fige: 0 [0|0] "" 0 128 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_1_fige: 0 [0|0] "" 0 129 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_Compt_MOL_1: 0 [0|255] "" 0 130 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_SYNCH_MOL_1: 0 [0|0] "" 0 131 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_31: 0 [0|0] "" 0 132 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_30: 0 [0|0] "" 0 133 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_29: 0 [0|0] "" 0 134 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_28: 0 [0|0] "" 0 135 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_27: 0 [0|0] "" 0 136 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_26: 0 [0|0] "" 0 137 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_25: 0 [0|0] "" 0 138 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_24: 0 [0|0] "" 0 139 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_23: 0 [0|0] "" 0 140 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_22: 0 [0|0] "" 0 141 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_21: 0 [0|0] "" 0 142 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_20: 0 [0|0] "" 0 143 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_19: 0 [0|0] "" 0 144 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_18: 0 [0|0] "" 0 145 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_17: 0 [0|0] "" 0 146 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_16: 0 [0|0] "" 0 147 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_15: 0 [0|0] "" 0 148 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_14: 0 [0|0] "" 0 149 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_13: 0 [0|0] "" 0 150 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_12: 0 [0|0] "" 0 151 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_11: 0 [0|0] "" 0 152 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_10: 0 [0|0] "" 0 153 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_9: 0 [0|0] "" 0 154 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_8: 0 [0|0] "" 0 155 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_7: 0 [0|0] "" 0 156 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_6: 0 [0|0] "" 0 157 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_5: 0 [0|0] "" 0 158 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_4: 0 [0|0] "" 0 159 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_3: 0 [0|0] "" 0 160 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_2: 0 [0|0] "" 0 161 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_simul_PUSH_1: 0 [0|0] "" 0 162 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_MONO: 0 [0|0] "" 0 163 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_LUM_LIN: 0 [0|0] "" 0 164 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_INTERD_MEMO_DEF: 0 [0|0] "" 0 165 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DEM_EFFAC_DEF: 0 [0|0] "" 0 166 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_SECU_ETAT_SEV: 0 [0|0] "" 0 167 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_28: 0 [0|0] "" 0 168 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_27: 0 [0|0] "" 0 169 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_26: 0 [0|0] "" 0 170 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_25: 0 [0|0] "" 0 171 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_24: 0 [0|0] "" 0 172 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_23: 0 [0|0] "" 0 173 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_22: 0 [0|0] "" 0 174 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_21: 0 [0|0] "" 0 175 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_niv_temp_AVG_aff: 0 [0|0] "" 0 176 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_perte_com_DSGN: 0 [0|0] "" 0 177 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_SYNCH_MOL_2: 0 [0|0] "" 0 178 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_SYNCH_MOL_2: 0 [0|0] "" 0 179 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_dsgn_Compt_MOL_2: 0 [0|0] "" 0 180 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_Compt_MOL_2: 0 [0|0] "" 0 181 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_20: 0 [0|0] "" 0 182 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_19: 0 [0|0] "" 0 183 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_18: 0 [0|0] "" 0 184 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_17: 0 [0|0] "" 0 185 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_16: 0 [0|0] "" 0 186 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_15: 0 [0|0] "" 0 187 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_14: 0 [0|0] "" 0 188 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_13: 0 [0|0] "" 0 189 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_12: 0 [0|0] "" 0 190 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_11: 0 [0|0] "" 0 191 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_10: 0 [0|0] "" 0 192 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_9: 0 [0|0] "" 0 193 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_8: 0 [0|0] "" 0 194 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_AVG_num: 1 [0|0] "" 0 195 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_AVD_num: 1 [0|0] "" 0 196 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_AQS: 0 [0|0] "" 0 197 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_voyant_etat_JN: 0 [0|0] "" 0 198 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Autor_restore: 0 [0|0] "" 0 199 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_CLIM_AR: 0 [0|0] "" 0 200 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_push_typage_normal_fige: 0 [0|0] "" 0 201 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_typage_leger_fige: 0 [0|0] "" 0 202 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_typage_fort_fige: 0 [0|0] "" 0 203 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_PULS_AV_plus_fige: 0 [0|0] "" 0 204 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_PULS_AV_moins_fige: 0 [0|0] "" 0 205 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVG_plus_fige: 0 [0|0] "" 0 206 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVG_moins_fige: 0 [0|0] "" 0 207 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVD_plus_fige: 0 [0|0] "" 0 208 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVD_moins_fige: 0 [0|0] "" 0 209 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_entree_air_fige: 0 [0|0] "" 0 210 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_mono_fige: 0 [0|0] "" 0 211 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_auto_max_fige: 0 [0|0] "" 0 212 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_auto_fige: 0 [0|0] "" 0 213 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_AR_fige: 0 [0|0] "" 0 214 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_AQS_fige: 0 [0|0] "" 0 215 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_AC_fige: 0 [0|0] "" 0 216 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_pied_fige: 0 [0|0] "" 0 217 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_degivrage_fige: 0 [0|0] "" 0 218 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_aeration_fige: 0 [0|0] "" 0 219 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_niv_temp_AVG: 0 [0|0] "" 0 220 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_AR: 0 [0|0] "" 0 221 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_typage_fort: 0 [0|0] "" 0 222 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_typage_normal: 0 [0|0] "" 0 223 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_typage_leger: 0 [0|0] "" 0 224 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_auto_max: 0 [0|0] "" 0 225 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_auto: 0 [0|0] "" 0 226 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_AC: 0 [0|0] "" 0 227 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_clim_mono: 0 [0|0] "" 0 228 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_AQS: 0 [0|0] "" 0 229 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_entree_air: 0 [0|0] "" 0 230 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_pied: 0 [0|0] "" 0 231 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_aeration: 0 [0|0] "" 0 232 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_distrib_degivrage: 0 [0|0] "" 0 233 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_PULS_AV_moins: 0 [0|0] "" 0 234 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_PULS_AV_plus: 0 [0|0] "" 0 235 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVD_moins: 0 [0|0] "" 0 236 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVD_plus: 0 [0|0] "" 0 237 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVG_moins: 0 [0|0] "" 0 238 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_push_DMD_temp_AVG_plus: 0 [0|0] "" 0 239 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_val_NIV_AMB_FMUX: 0 [0|0] "" 0 240 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CDE_ECL_CONNECT: 0 [0|0] "" 0 241 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_NIV_AMB_FMUX: 0 [0|0] "" 0 242 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_364: 0 [0|0] "" 0 243 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_Type_clim: 0 [0|0] "" 0 244 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_3D0: 0 [0|0] "" 0 245 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_CTX_JDD: 0 [0|0] "" 0 246 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_test_auto_perte_com: 0 [0|0] "" 0 247 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_MODE_HY: 0 [0|0] "" 2 248 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_UB_MODE_HY: 0 [0|0] "" 0 249 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_temps_filtrage_push: 0 [0|0] "" 0 250 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ACT_DIAG: 0 [0|0] "" 0 251 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_UCE_ABS_FMUX_1: 0 [0|0] "" 0 252 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_C_DEFAUT_NERR: 0 [0|0] "" 0 253 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_C_DEFAUT_PERTE_COM: 0 [0|0] "" 0 254 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_C_DEFAUT_BUSOFF: 0 [0|0] "" 0 255 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_C_DEFAUT_N_AS: 0 [0|0] "" 0 256 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PERTE_COM: 0 [0|0] "" 0 257 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_SESS_DIAG: 0 [0|0] "" 0 258 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ETAT_NM: 0 [0|0] "" 0 259 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_BIT_NERR: 0 [0|0] "" 0 260 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_LUM_DSGN: 0 [0|0] "" 0 261 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_BLACK_PANEL: 0 [0|0] "" 0 262 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_JN_DSGN: 0 [0|0] "" 0 263 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_SYNCH_MOL_1: 0 [0|0] "" 0 264 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_dsgn_Compt_MOL_1: 0 [0|0] "" 0 265 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_31: 0 [0|0] "" 0 266 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_30: 0 [0|0] "" 0 267 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_29: 0 [0|0] "" 0 268 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_28: 0 [0|0] "" 0 269 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_27: 0 [0|0] "" 0 270 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_26: 0 [0|0] "" 0 271 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_25: 0 [0|0] "" 0 272 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_24: 0 [0|0] "" 0 273 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_23: 0 [0|0] "" 0 274 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_22: 0 [0|0] "" 0 275 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_21: 0 [0|0] "" 0 276 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_20: 0 [0|0] "" 0 277 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_19: 0 [0|0] "" 0 278 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_18: 0 [0|0] "" 0 279 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_17: 0 [0|0] "" 0 280 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_16: 0 [0|0] "" 0 281 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_15: 0 [0|0] "" 0 282 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_14: 0 [0|0] "" 0 283 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_13: 0 [0|0] "" 0 284 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_12: 0 [0|0] "" 0 285 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_11: 0 [0|0] "" 0 286 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_10: 0 [0|0] "" 0 287 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_9: 0 [0|0] "" 0 288 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_8: 0 [0|0] "" 0 289 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_7: 0 [0|0] "" 0 290 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_6: 0 [0|0] "" 0 291 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_5: 0 [0|0] "" 0 292 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_4: 0 [0|0] "" 0 293 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_3: 0 [0|0] "" 0 294 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_2: 0 [0|0] "" 0 295 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_dsgn_PUSH_1: 0 [0|0] "" 0 296 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_7: 0 [0|0] "" 0 297 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_6: 0 [0|0] "" 0 298 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_5: 0 [0|0] "" 0 299 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_4: 0 [0|0] "" 0 300 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_3: 0 [0|0] "" 0 301 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_2: 0 [0|0] "" 0 302 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_1: 0 [0|0] "" 0 303 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_SYNCH_MOL_1: 0 [0|0] "" 0 304 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_Compt_MOL_1: 0 [0|0] "" 0 305 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_tous_trames: 0 [0|0] "" 0 306 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_2AD: 0 [0|0] "" 0 307 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_F6: 0 [0|0] "" 0 308 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_236: 0 [0|0] "" 0 309 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ NI_DEV1_CAN3: 0 [0|0] "" 0 175 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ NI_DEV1_CAN2: 0 [0|0] "" 0 176 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ NI_DEV1_CAN1: 0 [0|0] "" 0 177 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ NI_DEV1_PLUS_CAN: 0 [0|0] "" 0 182 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_36: 0 [0|0] "" 0 310 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_pulseur_ARG_plus: 0 [0|0] "" 0 311 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_pulseur_ARG_moins: 0 [0|0] "" 0 312 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ acquit: 0 [0|0] "" 0 313 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ bt_mise_en_veille: 0 [0|0] "" 0 314 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ bt_reveil: 0 [0|0] "" 0 315 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ secu_etat_sev: 0 [0|0] "" 0 316 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ bt_simul_designateur: 0 [0|0] "" 0 317 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ bt_TestFacadeMUX: 0 [0|0] "" 0 318 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DISTRIBUTION_AVG: 0 [0|0] "" 0 319 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_PULS_AV: 0 [0|0] "" 0 320 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ENTREE_AIR: 0 [0|0] "" 0 321 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_AVD: 0 [0|0] "" 0 322 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_VAL_CONS_TEMP_AVG: 0 [0|0] "" 0 323 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ TEMP_SONDE_EVAPORATEUR: 0 [0|0] "" 0 324 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_TYPAGE: 0 [0|0] "" 0 325 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DMD_AC: 0 [0|0] "" 0 326 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DMD_VISI: 0 [0|0] "" 0 327 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ACTIVATE_LUCH: 0 [0|0] "" 0 328 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_AC_MAX: 0 [0|0] "" 0 329 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ DEF_MOTEUR_PULSEUR_AV: 0 [0|0] "" 0 330 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CPT_RAZ_GCT: 0 [0|0] "" 0 331 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CPT_TEMPOREL: 0 [0|0] "" 0 332 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ MODE_CONFIG_VHL: 0 [0|0] "" 0 333 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_reseau_elec: 0 [0|0] "" 0 334 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ TYPE_DIR: 0 [0|0] "" 0 335 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ KM_total: 0 [0|0] "" 0 336 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ ETAT_GMP: 0 [0|0] "" 0 337 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ ETAT_PRINCIP_SEV: 0 [0|0] "" 0 338 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ phase_vie: 0 [0|0] "" 0 339 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ INTERD_MEMO_DEF: 0 [0|0] "" 0 340 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ DIAG_MUX_ON: 0 [0|0] "" 0 341 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ DEM_EFFAC_DEF: 0 [0|0] "" 0 342 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Luminosite: 0 [0|15] "" 0 343 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_JN: 0 [0|0] "" 0 344 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Consigne_pulseur_avt: 0 [0|0] "" 0 345 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Consigne_entree_air: 0 [0|0] "" 0 346 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Consigne_temp: 0 [0|0] "" 0 347 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_pulseur_moins: 0 [0|0] "" 0 348 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Etat_pulseur_plus: 0 [0|0] "" 0 349 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Voyant_LUCH: 0 [0|1] "" 0 350 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ UNITE_TEMPERATURE: 0 [0|1] "" 0 351 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ REP_UCE: 0 [0|1] "" 0 352 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ MISE_MEM_C: 0 [0|1] "" 0 353 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CHGT_NIV_SLIDER: 0 [0|1] "" 0 354 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CHGT_NIV_SLIDER_fige: 0 [0|1] "" 0 355 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ DISPO_UNITES_LANGUE: 0 [0|1] "" 0 356 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ VOY_PBC: 0 [0|1] "" 0 357 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CONS_ENTREE_AIR: 0 [0|1] "" 0 358 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ PRESENCE_PBC: 0 [0|1] "" 0 359 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ PRESENCE_IHM_AR_CENTRAL: 0 [0|1] "" 0 360 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_trame_260: 0 [0|1] "" 0 361 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ACTIVATE_PBC: 0 [0|1] "" 0 362 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_presence_sieges_clim_ar: 0 [0|0] "" 0 363 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ NUM_MEM_C: 0 [0|14] "" 0 364 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CONS_PULSEUR_ARG: 0 [0|0] "" 0 364 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CONS_PULSEUR_AVANT: 0 [0|0] "" 0 366 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ val_CONS_PULSEUR_AVANT: 0 [0|0] "" 0 367 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ val_CONS_PULSEUR_ARG: 0 [0|0] "" 0 368 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ CMD_IONIZER: 0 [0|1] "" 0 369 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_30: 0 [0|0] "" 0 370 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_31: 0 [0|0] "" 0 371 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_PUSH_29: 0 [0|0] "" 0 372 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_PBC: 0 [0|0] "" 0 373 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ETAT_REAR: 0 [0|0] "" 0 374 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DMD_REAR_ONOFF: 0 [0|0] "" 0 374 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_DMD_niv_temp_AVD: 0 [0|0] "" 0 375 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_DMD_niv_temp_AVD_aff: 0 [0|0] "" 0 376 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+VAL_ env_mode_eco 1 "Mode ECO Demande" 0 "Pas de mode ECO" ;
+VAL_ env_SORTIE_PUSH_STT 3 "invalide" 2 "allume clignotant" 1 "allume fixe" 0 "eteint" ;
+VAL_ env_presence_CRT 1 "Présente" 0 "Absente" ;
+VAL_ env_presence_siege 2 "Siéges chauffants et ventilés" 1 "Siéges chauffants" 0 "Siéges absents" ;
+VAL_ env_DMD_SIEGE_CHAUF_AVD 3 "niveau 3" 2 "niveau 2" 1 "niveau 1" 0 "pas de commande" ;
+VAL_ env_DMD_SIEGE_CHAUF_AVG 3 "niveau 3" 2 "niveau 2" 1 "niveau 1" 0 "pas de commande" ;
+VAL_ env_CONS_PULS_ARG 15 "Non utilise" 14 "Non utilise" 13 "Non utilise" 12 "Non utilise" 11 "Non utilise" 10 "Non utilise" 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Vitesse 0" 0 "Auto" ;
+VAL_ env_DISTRIBUTION_ARD_LIN 8 "Non utilise" 7 "Non utilise" 6 "Non utilise" 5 "Pied Aération" 4 "Non utilise" 3 "Aération" 2 "Non utilise" 1 "Non utilise" 0 "Auto Confort" ;
+VAL_ env_DISTRIBUTION_ARG_LIN 8 "Non utilise" 7 "Non utilise" 6 "Non utilise" 5 "Pied Aération" 4 "Non utilise" 3 "Aération" 2 "Non utilise" 1 "Non utilise" 0 "Auto Confort" ;
+VAL_ env_VAL_CONS_TEMP_ARD_LIN 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_VAL_CONS_TEMP_ARG_LIN 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_VAL_CONS_TEMP_ARG 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_VAL_CONS_TEMP_ARD 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_UB_ARG 1 "Infos rafraichies" 0 "Infos non rafraichies" ;
+VAL_ env_UB_ARD 1 "Infos rafraichies" 0 "Infos non rafraichies" ;
+VAL_ env_PULS_ARG 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Vitesse 0" 0 "Auto" ;
+VAL_ env_DISTRIBUTION_ARG 8 "Pied Aération Dégivrage" 7 "Aération Dégivrage" 6 "Pied Dégivrage" 5 "Pied Aération" 4 "Dégivrage" 3 "Aération" 2 "Pied" 1 "Auto Visibilité" 0 "Auto Confort" ;
+VAL_ env_DISTRIBUTION_ARD 8 "Pied Aération Dégivrage" 7 "Aération Dégivrage" 6 "Pied Dégivrage" 5 "Pied Aération" 4 "Dégivrage" 3 "Aération" 2 "Pied" 1 "Auto Visibilité" 0 "Auto Confort" ;
+VAL_ env_DISTRIBUTION_AVD 9 "Different de dégivrage" 8 "Pied Aeration degivrage" 7 "Aération dégivrage" 6 "Pied dégivrage" 5 "Pied aération" 4 "Dégivrage" 3 "Aération" 2 "Pied" 1 "Auto visibilité" 0 "Auto confort" ;
+VAL_ env_dsgn_simul_SYNCH_MOL_1 1 "Synchronisation non demandee" 0 "Synchronisation demandee" ;
+VAL_ env_DMD_niv_temp_AVG_aff 22 "HI" 19 "Niveau 19" 18 "Niveau 18" 17 "Niveau 17" 16 "Niveau 16" 15 "Niveau 15" 14 "Niveau 14" 13 "Niveau 13" 12 "Niveau 12" 11 "Niveau 11" 10 "Niveau 10" 9 "Niveau 9" 8 "Niveau 8" 7 "Niveau 7" 6 "Niveau 6" 5 "Niveau 5" 4 "Niveau 4" 3 "Niveau 3" 2 "Niveau 2" 1 "Niveau 1" 0 "LO" ;
+VAL_ env_ETAT_CLIM_AR 3 "Off locked" 2 "Off" 1 "On locked" 0 "On" ;
+VAL_ env_DMD_niv_temp_AVG 22 "HI" 19 "Niveau 19" 18 "Niveau 18" 17 "Niveau 17" 16 "Niveau 16" 15 "Niveau 15" 14 "Niveau 14" 13 "Niveau 13" 12 "Niveau 12" 11 "Niveau 11" 10 "Niveau 10" 9 "Niveau 9" 8 "Niveau 8" 7 "Niveau 7" 6 "Niveau 6" 5 "Niveau 5" 4 "Niveau 4" 3 "Niveau 3" 2 "Niveau 2" 1 "Niveau 1" 0 "LO" ;
+VAL_ env_CDE_ECL_CONNECT 1 "Allumé" 0 "Eteint" ;
+VAL_ env_Type_clim 3 "RFT" 2 "RFTA" 1 "RF" 0 "CH" ;
+VAL_ env_MODE_HY 7 "Invalide" 6 "Valeur non utilisée" 5 "Valeur non utilisée" 4 "Valeur non utilisée" 3 "ZEV" 2 "HY" 1 "Sport" 0 "4x4" ;
+VAL_ env_UB_MODE_HY 2 "Invalide" 1 "Infos rafraîchies" 0 "Infos non rafraîchies" ;
+VAL_ Etat_pulseur_ARG_plus 15 "Non utilise" 14 "Non utilise" 13 "Non utilise" 12 "Non utilise" 11 "Non utilise" 10 "Non utilise" 9 "Vitesse8" 8 "Vitesse7" 7 "Vitesse6" 6 "Vitesse5" 5 "Vitesse4" 4 "Vitesse3" 3 "Vitesse2" 2 "Vitesse1" 1 "Non utilise" 0 "Non utilise" ;
+VAL_ Etat_pulseur_ARG_moins 15 "Non utilise" 14 "Non utilise" 13 "Non utilise" 12 "Non utilise" 11 "Non utilise" 10 "Non utilise" 9 "Vitesse8" 8 "Vitesse7" 7 "Vitesse6" 6 "Vitesse5" 5 "Vitesse4" 4 "Vitesse3" 3 "Vitesse2" 2 "Vitesse1" 1 "Non utilise" 0 "Non utilise" ;
+VAL_ env_DISTRIBUTION_AVG 9 "Different de dégivrage" 8 "Pied Aeration degivrage" 7 "Aération dégivrage" 6 "Pied dégivrage" 5 "Pied aération" 4 "Dégivrage" 3 "Aération" 2 "Pied" 1 "Auto visibilité" 0 "Auto confort" ;
+VAL_ env_PULS_AV 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Vitesse 0" 0 "Auto" ;
+VAL_ env_ENTREE_AIR 3 "Auto confort sans AQS" 2 "Forcée Fermée" 1 "Auto Visibilite" 0 "Auto confort" ;
+VAL_ env_VAL_CONS_TEMP_AVD 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_VAL_CONS_TEMP_AVG 22 "HI" 21 "X +7°C" 20 "X +6°C" 19 "X +5°C" 18 "X +4°C" 17 "X +3°C" 16 "X +2.5°C" 15 "X +2°C" 14 "X +1.5°C" 13 "X +1°C" 12 "X +0.5°C" 11 "Valeur centrée X°C" 10 "X -0.5°C" 9 "X -1°C" 8 "X -1.5°C" 7 "X -2°C" 6 "X -2.5°C" 5 "X -3°C" 4 "X -4°C" 3 "X -5°C" 2 "X -6°C" 1 "X -7°C" 0 "LO" ;
+VAL_ env_TYPAGE 2 "Fort" 1 "Normal" 0 "Leger" ;
+VAL_ env_DMD_AC 2 "OFF" 1 "Auto Visibilité" 0 "Auto confort" ;
+VAL_ MODE_CONFIG_VHL 6 "APV" 5 "Show room" 4 "Client" 3 "Stockage / Transport" 2 "Controle" 1 "Usine" 0 "Montage" ;
+VAL_ Etat_reseau_elec 7 "TA_SECU" 6 "TA_DEGRADE" 5 "TA_NOMINAL" 4 "REDEMARRAGE" 3 "DEMARRAGE" 2 "TI_DISPO_DEM" 1 "TI_DEGRADE" 0 "TI_NOMINAL" ;
+VAL_ TYPE_DIR 2 "Gauche" 1 "Droite" ;
+VAL_ ETAT_GMP 3 "Moteur arrêté en phase de stop" 2 "Moteur tournant" 1 "Démarrage en cours" 0 "Moteur non tournant" ;
+VAL_ ETAT_PRINCIP_SEV 3 "Libre" 2 "DEM" 1 "Contact" 0 "Arrêt" ;
+VAL_ phase_vie 4 "COM_OFF" 3 "Réveil" 2 "Mise en Veille" 1 "Mode Normal" 0 "Veille" ;
+VAL_ Consigne_entree_air 2 "Recyclage total" 1 "Recyclage partiel" 0 "Air extérieur" ;
+VAL_ Consigne_temp 7 "25°C " 6 "24°C " 5 "23°C " 4 "22°C " 3 "21°C  " 2 "20°C " 1 "19°C " 0 "18°C " ;
+VAL_ Etat_pulseur_moins 15 "Non utilisé" 14 "Non utilisé" 13 "Non utilisé" 12 "Non utilisé" 11 "Non utilisé" 10 "Non utilisé" 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Non utilisé" 0 "Non utilisé" ;
+VAL_ Etat_pulseur_plus 15 "Non utilisé" 14 "Non utilisé" 13 "Non utilisé" 12 "Non utilisé" 11 "Non utilisé" 10 "Non utilisé" 9 "Vitesse 8" 8 "Vitesse 7" 7 "Vitesse 6" 6 "Vitesse 5" 5 "Vitesse 4" 4 "Vitesse 3" 3 "Vitesse 2" 2 "Vitesse 1" 1 "Non utilisé" 0 "Non utilisé" ;
+VAL_ CMD_IONIZER 2 "ion_comfort" 1 "ion_clean" 0 "ion_off" ;
+VAL_ env_presence_sieges_clim_ar 2 "Sièges chauffants et ventilés" 1 "Sièges chauffants" 0 "absent" ;
+VAL_ env_DMD_niv_temp_AVD_aff 22 "HI" 19 "Niveau 19" 18 "Niveau 18" 17 "Niveau 17" 16 "Niveau 16" 15 "Niveau 15" 14 "Niveau 14" 13 "Niveau 13" 12 "Niveau 12" 11 "Niveau 11" 10 "Niveau 10" 9 "Niveau 9" 8 "Niveau 8" 7 "Niveau 7" 6 "Niveau 6" 5 "Niveau 5" 4 "Niveau 4" 3 "Niveau 3" 2 "Niveau 2" 1 "Niveau 1" 0 "LO" ;
+VAL_ env_DMD_niv_temp_AVD 22 "HI" 19 "Niveau 19" 18 "Niveau 18" 17 "Niveau 17" 16 "Niveau 16" 15 "Niveau 15" 14 "Niveau 14" 13 "Niveau 13" 12 "Niveau 12" 11 "Niveau 11" 10 "Niveau 10" 9 "Niveau 9" 8 "Niveau 8" 7 "Niveau 7" 6 "Niveau 6" 5 "Niveau 5" 4 "Niveau 4" 3 "Niveau 3" 2 "Niveau 2" 1 "Niveau 1" 0 "LO" ;

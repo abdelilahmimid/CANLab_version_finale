@@ -1,0 +1,294 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: DSGN_DIAG FMUX_DIAG
+VAL_TABLE_ table_valeur_telecod_conf_audio 128 "Présent" 0 "Absent" ;
+VAL_TABLE_ table_valeur_telecod_conf_clim_2 128 "Présent" 0 "Absent" ;
+VAL_TABLE_ table_valeur_telecod_conf_clim_1 128 "Présente" 0 "Absente" ;
+VAL_TABLE_ table_choix_uce 2 "DGT" 1 "Radio" 0 "FMUX" ;
+VAL_TABLE_ table_choix_eff_def 3 "Tous défauts" 2 "Défauts tout calculo sous FMUX" 1 "Défauts désignateur" 0 "Défauts FMUX" ;
+VAL_TABLE_ table_param_telecod 3 "Rhéostatage dsgn" 9 "Rhéostatage couleur 1 side LED" 8 "Rhéostatage couleur 3" 2 "Rhéostatage couleur 2" 0 "Rhéostatage afficheur" 7 "Données d'éclairage état nuit" 6 "Données d'éclairage état jour" 5 "Données de conf Audio/Télémat" 4 "Données de conf Clim" 1 "Rhéostatage couleur 1" ;
+VAL_TABLE_ table_etat_commande 34 "Distribution AVG" 10 "Distribution AVG Pied" 9 "Distribution AVG Aération" 8 "Distribution AVG Dégivrage" 7 "Pulseur AV" 6 "Température AVD" 5 "Température AVG" 4 "Push AC" 3 "Push Entrée d'air" 0 "Push Automatique" 33 "Donnée de rhéost coul 1 side LED" 32 "Données de rhéostatage couleur 3" 17 "Données de rhéostatage dsgn" 16 "Données de rhéostatage couleur 2" 14 "Rhéostatage afficheur" 25 "Rhéostatage couleur 1" 24 "PWM des temoins de fonction" 23 "Données d'éclairage état nuit" 22 "Données d'éclairage état jour" 21 "Témoin de fonction de la façade" 20 "Tout le réhostatage" 19 "Données de conf Audio/Télémat" 18 "Données de conf Clim" 15 "Données de rhéostatage couleur 1" 12 "Fonction audio_télématique" 2 "Push Lunette chauffante" 1 "Push Visibilité" ;
+VAL_TABLE_ table_type_eclairage 3 " " 2 "H1+H7" 1 "LAD bi fonctions + H" 0 "LAD bi fonctions" ;
+VAL_TABLE_ table_protocole 1 "KWP" 0 "UDS" ;
+VAL_TABLE_ table_EFFAC_DEFAUT_DIAG 1 "Effacement mémoire des défauts" 0 "Pas d'action spécifique" ;
+VAL_TABLE_ table_MODE_DIAG 1 "Inhib du fonctionnel et la com." 0 "Pas  de fonctionnement part." ;
+VAL_TABLE_ table_DIAG_INTEGRA_ELEC 1 "Pas de transmission de trames" 0 "Pas de fonctionnement part." ;
+
+
+
+
+EV_ EvS_Serial_Number: 0 [0|0] "" 0 1 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_pil_rheost_color3_desact: 0 [0|0] "" 0 2 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_color3_act: 0 [0|0] "" 0 3 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_conf_clim_2: 0 [0|0] "" 0 4 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_conf_audiotel: 0 [0|0] "" 0 5 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_conf_clim_1: 0 [0|0] "" 0 6 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ choix_uce: 0 [0|0] "" 0 7 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_RESET_FACADE: 0 [0|0] "" 0 8 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_tem_fonct_pwm_desact: 0 [0|0] "" 0 9 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_tem_fonct_pwm_act: 0 [0|0] "" 0 10 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_choix_eff_def: 0 [0|0] "" 0 11 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_result_etat_commande: 0 [0|0] "" 0 12 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_valeur_telecod_16: 0 [0|0] "" 255 13 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_15: 0 [0|0] "" 239 14 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_14: 0 [0|0] "" 223 15 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_13: 0 [0|0] "" 207 16 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_12: 0 [0|0] "" 191 17 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_11: 0 [0|0] "" 175 18 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_10: 0 [0|0] "" 159 19 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_9: 0 [0|0] "" 143 20 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_8: 0 [0|0] "" 127 21 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_7: 0 [0|0] "" 111 22 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_6: 0 [0|0] "" 95 23 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_5: 0 [0|0] "" 79 24 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_4: 0 [0|0] "" 63 25 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_3: 0 [0|0] "" 47 26 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_2: 0 [0|0] "" 31 27 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoie_tx: 0 [0|0] "" 0 28 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ecriture_telecod: 0 [0|0] "" 0 29 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_valeur_telecod_1: 0 [0|0] "" 15 30 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_param_telecod: 0 [0|0] "" 1 31 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_envoi_etat_commande: 0 [0|0] "" 0 32 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_etat_commande: 0 [0|0] "" 1 33 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_REVEIL_CONTACT: 0 [0|0] "" 0 34 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_tem_fonct_desact: 0 [0|0] "" 0 35 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_seg_LCD_desact: 0 [0|0] "" 0 36 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_color1_desact: 0 [0|0] "" 0 37 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_LCD_desact: 0 [0|0] "" 0 38 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_color2_desact: 0 [0|0] "" 0 39 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_fac_comp_desact: 0 [0|0] "" 0 40 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_color2_act: 0 [0|0] "" 0 41 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_color1_act: 0 [0|0] "" 0 42 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_rheost_LCD_act: 0 [0|0] "" 0 43 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_seg_LCD_act: 0 [0|0] "" 0 44 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_tem_fonct_act: 0 [0|0] "" 0 45 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_pil_fac_comp_act: 0 [0|0] "" 0 46 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_rheost_dsgn_desact: 0 [0|0] "" 0 47 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_rheost_dsgn_act: 0 [0|0] "" 0 48 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_numero_serie: 0 [0|0] "" 0 49 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_numero_serie_dmd: 0 [0|0] "" 0 50 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_date: 0 [0|0] "" 0 51 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_date_prod: 0 [0|0] "" 0 52 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_diag_tracabilite: 0 [0|0] "" 0 53 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_lecture_diag: 0 [0|0] "" 0 54 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_config: 0 [0|0] "" 0 55 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_WDBI: 0 [0|0] "" 0 56 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_RDBI: 0 [0|0] "" 0 57 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_protocole: 0 [0|0] "" 0 58 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_cle_appli: 0 [0|0] "" 0 59 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_rx: 0 [0|0] "" 0 60 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_tx: 0 [0|0] "" 0 61 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_led_stop_com: 0 [0|0] "" 0 62 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_led_start_com: 0 [0|0] "" 0 63 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_rep_effacement_defaut: 0 [0|0] "" 0 64 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_liste_defaut_2: 0 [0|0] "" 0 65 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_liste_defaut: 0 [0|0] "" 0 66 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_nb_defaut: 0 [0|0] "" 0 67 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_effacement_defaut: 0 [0|0] "" 0 68 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_lecture_defaut: 0 [0|0] "" 0 69 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_version_diag: 0 [0|0] "" 0 70 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_edition_calib: 0 [0|0] "" 0 71 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_version_calib: 0 [0|0] "" 0 72 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_edition_soft: 0 [0|0] "" 0 73 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_version_soft: 0 [0|0] "" 0 74 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZA_ref_compl: 0 [0|0] "" 0 75 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ZA_fournisseur: 0 [0|0] "" 0 76 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ZA_ref_psa: 0 [0|0] "" 0 77 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ZI_ref_soft: 0 [0|0] "" 0 78 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ZI_edition: 0 [0|0] "" 0 79 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZI_version: 0 [0|0] "" 0 80 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZI_application: 0 [0|0] "" 0 81 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZI_systeme: 0 [0|0] "" 0 82 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZI_fournisseur: 0 [0|0] "" 0 83 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_rep_ZA: 0 [0|0] "" 0 84 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_rep_ZI: 0 [0|0] "" 0 85 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_ZA: 0 [0|0] "" 0 86 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ZI: 0 [0|0] "" 0 87 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_rep_ouv_session: 0 [0|0] "" 0 88 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_rep_stop_com: 0 [0|0] "" 0 89 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_rep_start_com: 0 [0|0] "" 0 90 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ env_stop_com: 0 [0|0] "" 0 91 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_start_com: 0 [0|0] "" 0 92 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_ouv_session: 0 [0|0] "" 0 93 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_EFFAC_DEFAUT_DIAG: 0 [0|0] "" 0 94 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ env_MODE_DIAG: 0 [0|0] "" 0 95 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+BA_DEF_ BU_  "TpAddressingMode" INT 0 3;
+BA_DEF_ BU_  "TpBlockSize" HEX 0 255;
+BA_DEF_ BU_  "TpCanBus" INT 0 2;
+BA_DEF_ BU_  "TpRxIdentifier" HEX 0 536870911;
+BA_DEF_ BU_  "TpRxMask" HEX 0 65535;
+BA_DEF_ BU_  "TpSTMin" INT 0 255;
+BA_DEF_ BU_  "TpTxIdentifier" HEX 0 536870911;
+BA_DEF_ BU_  "TpUseFC" INT 0 1;
+BA_DEF_  "TpBaseAddress" HEX 0 536870911;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_DEF_  "TpAddressingMode" 0;
+BA_DEF_DEF_  "TpBlockSize" 2;
+BA_DEF_DEF_  "TpCanBus" 1;
+BA_DEF_DEF_  "TpRxIdentifier" 1;
+BA_DEF_DEF_  "TpRxMask" 255;
+BA_DEF_DEF_  "TpSTMin" 10;
+BA_DEF_DEF_  "TpTxIdentifier" 1;
+BA_DEF_DEF_  "TpUseFC" 1;
+BA_DEF_DEF_  "TpBaseAddress" 0;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_ "TpRxIdentifier" BU_ DSGN_DIAG 1814;
+BA_ "TpTxIdentifier" BU_ DSGN_DIAG 1846;
+BA_ "ECU" BU_ DSGN_DIAG "DSGN";
+BA_ "NodeLayerModules" BU_ DSGN_DIAG "osek_tp.dll";
+BA_ "TpBlockSize" BU_ FMUX_DIAG 0;
+BA_ "TpRxIdentifier" BU_ FMUX_DIAG 1659;
+BA_ "TpTxIdentifier" BU_ FMUX_DIAG 1915;
+BA_ "ECU" BU_ FMUX_DIAG "FMUX";
+BA_ "NodeLayerModules" BU_ FMUX_DIAG "osek_tp.dll";
+VAL_ env_valeur_telecod_conf_clim_2 128 "Présent" 0 "Absent" ;
+VAL_ env_valeur_telecod_conf_audiotel 128 "Présent" 0 "Absent" ;
+VAL_ env_valeur_telecod_conf_clim_1 128 "Présente" 0 "Absente" ;
+VAL_ choix_uce 2 "DGT" 1 "Radio" 0 "FMUX" ;
+VAL_ env_choix_eff_def 3 "Tous défauts" 2 "Défauts tout calculo sous FMUX" 1 "Défauts désignateur" 0 "Défauts FMUX" ;
+VAL_ env_param_telecod 3 "Rhéostatage dsgn" 9 "Rhéostatage couleur 1 side LED" 8 "Rhéostatage couleur 3" 2 "Rhéostatage couleur 2" 0 "Rhéostatage afficheur" 7 "Données d'éclairage état nuit" 6 "Données d'éclairage état jour" 5 "Données de conf Audio/Télémat" 4 "Données de conf Clim" 1 "Rhéostatage couleur 1" ;
+VAL_ env_etat_commande 34 "Distribution AVG" 10 "Distribution AVG Pied" 9 "Distribution AVG Aération" 8 "Distribution AVG Dégivrage" 7 "Pulseur AV" 6 "Température AVD" 5 "Température AVG" 4 "Push AC" 3 "Push Entrée d'air" 0 "Push Automatique" 33 "Donnée de rhéost coul 1 side LED" 32 "Données de rhéostatage couleur 3" 17 "Données de rhéostatage dsgn" 16 "Données de rhéostatage couleur 2" 14 "Rhéostatage afficheur" 25 "Rhéostatage couleur 1" 24 "PWM des temoins de fonction" 23 "Données d'éclairage état nuit" 22 "Données d'éclairage état jour" 21 "Témoin de fonction de la façade" 20 "Tout le réhostatage" 19 "Données de conf Audio/Télémat" 18 "Données de conf Clim" 15 "Données de rhéostatage couleur 1" 12 "Fonction audio_télématique" 2 "Push Lunette chauffante" 1 "Push Visibilité" ;
+VAL_ env_protocole 1 "KWP" 0 "UDS" ;
+VAL_ env_EFFAC_DEFAUT_DIAG 1 "Effacement mémoire des défauts" 0 "Pas d'action spécifique" ;
+VAL_ env_MODE_DIAG 1 "Inhib du fonctionnel et la com." 0 "Pas  de fonctionnement part." ;
+

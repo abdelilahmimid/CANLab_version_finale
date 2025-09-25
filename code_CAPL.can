@@ -1,0 +1,4731 @@
+/*@!Encoding:1252*/
+variables
+{
+    message 0x36 HS4_COMMANDES_VSM;                   //Envoi_trame_36
+    message 0x92 HS4_INTE_ELECTRON_VSM_092;           //Envoi_trame_92
+    message 0xb6 HS4_DONNEES_VSM_RAPIDES;             //Envoi_trame_B6
+    message 0xf6 HS4_DONNEES_VSM_LENTES;              //Envoi_trame_F6
+    message 0x122 HS4_ETAT_FMUX;                      //Envoi_trame_122
+    message 0x220 HS4_VSM_INF_PROFILS_2;              //Envoi_trame_220
+    message 0x227 HS4_CDE_LED_PUSH;                   //Envoi_trame_227
+    message 0x236 HS4_DONNEES_VSM_LENTES_2;           //Envoi_trame_236
+    message 0x276 HS4_DONNEES_VSM_LENTES_3;           //Envoi_trame_276
+    message 0x2ad HS4_CDE_IHM_CLIM;                   //Envoi_trame_2AD
+    message 0x2ed HS4_CDE_IHM_CLIM_2;                 //Envoi_trame_2ED
+    message 0x363 HS4_INFO_IHM_3;                     //Envoi_trame_363
+    message 0x365 HS4_ETAT_PUSH_PHYS;                 //Envoi_trame_365
+    message 0x53b HS4_SUPERVISION_FMUX;               
+
+    message 0x476 HS4_ACK_EVT_DEF;                    //Envoi_trame_476
+    message 0x4bb HS4_FLT_EVT_FMUX;                   //Envoi_trame_4BB
+    
+    message 0x736 HS4_REQ_DIAG_LIN_FMUX;              //Envoi_trame_736
+    message 0x77b HS4_REQ_DIAG_FMUX;                  //Envoi_trame_77B
+
+    mstimer period_1000;
+    mstimer period_500;
+    mstimer period_100;
+    mstimer period_50;
+    
+    mstimer reveil;
+    mstimer mise_en_veille;
+   
+    mstimer period_Trame_acquittement;
+    mstimer period_Trame_bad_acquittement;
+
+    int var;
+    mstimer Timer_500;
+  
+    mstimer arret_contact;
+
+    int Octet_Entete;
+    int Code_octet1_low,Code_octet1_hight,Code_octet2,Code_octet3;
+
+    double result;
+    float x;
+    float y;
+
+    dword fenetre;
+    
+//    mstimer reset;
+
+    int flag_hybride_1;
+    int flag_hybride_2;
+
+    
+    mstimer luch;
+    mstimer PBC;
+    int l = 0;
+    
+    int ack = 0;
+    int acq;
+   
+    
+    int flag_type_clim_1;
+    int flag_type_clim_2;
+
+}
+
+on start
+{
+    setTimer(Timer_500,500);
+    putvalue(SECU_ETAT_SEV,0x0a);
+
+    putvalue(Acquit,2);
+
+    putvalue(Envoi_des_trames,1);
+
+    putvalue(Envoi_trame_227,1);
+    putvalue(Envoi_trame_2AD,1);
+    putvalue(Envoi_trame_2ED,1);
+    putvalue(Envoi_trame_36,1);
+    putvalue(Envoi_trame_F6,1);
+    putvalue(Envoi_trame_236,1);
+    putvalue(Envoi_trame_B6,1);
+    putvalue(Envoi_trame_276,1);
+    putvalue(Envoi_trame_363,1);
+    putvalue(Envoi_trame_220,1);
+    putvalue(Envoi_trame_92,1);
+
+
+    putvalue(ETAT_PRINCIP_SEV, 0x00);
+    putvalue(ETAT_GMP, 0x00);
+    putvalue(ETAT_RESEAU_ELEC, 0x00);
+    putvalue(KM_TOTAL, 0x2710);
+    putvalue(MODE_CONFIG_VHL, 0x04);
+    putvalue(ENTREE_AIR, 1);
+    putvalue(ETAT_PULSEUR, 0x02);
+    putvalue(CONS_TEMP_CENT, 0x03);
+//    putvalue(Etat_pulseur_ARG_moins, 0x02);
+//    putvalue(Etat_pulseur_ARG_plus, 0x07);
+//    putvalue(Etat_pulseur_moins, 0x02);
+//    putvalue(Etat_pulseur_plus, 0x08);
+    putvalue(VOY_LUCH, 0x00);
+    putvalue(PHASE_VIE, 0x00);
+    putvalue(LUMINOSITE, 0x07);
+    
+    putvalue(TYPE_CLIM, 0x02);//RFTA
+  
+    putValue(Sortie_DIST_AVG_DEGI,1);
+    putValue(Sortie_DIST_AVG_AERATION,1);
+    putValue(Sortie_DIST_AVG_PIED,1);  
+   
+    HS4_DONNEES_VSM_LENTES_2.PRESENCE_CRT = 1;
+
+}
+
+
+on envVar Envoi_trame_227
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_500,500);
+       }
+
+    else
+        canceltimer(period_500);
+
+}
+
+
+on envVar Envoi_trame_2AD
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_500,500);
+       }
+
+    else
+        canceltimer(period_500);
+
+}
+
+
+on envVar Envoi_trame_2ED
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_500,500);
+       }
+
+    else
+        canceltimer(period_500);
+
+}
+
+on envVar Envoi_trame_36
+{
+
+    if(getvalue(this) == 1)
+       {
+       settimer(period_100,100);
+       }
+      
+     else
+        
+        canceltimer(period_100);
+}
+
+
+on envVar Envoi_trame_F6
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_500,500);
+       }
+
+    else
+        canceltimer(period_500);
+
+}
+
+
+on envVar Envoi_trame_236
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_1000,1000);
+       }
+
+    else
+        canceltimer(period_1000);
+
+}
+
+
+on envVar Envoi_trame_B6
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_50,50);
+       }
+
+    else
+        canceltimer(period_50);
+
+}
+
+
+on envVar Envoi_trame_276
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_1000,1000);
+       }
+
+    else
+        canceltimer(period_1000);
+
+}
+
+
+on envVar Envoi_trame_363
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_1000,1000);
+       }
+
+    else
+        canceltimer(period_1000);
+
+}
+
+
+on envVar Envoi_trame_220
+{
+
+    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+
+       {
+       settimer(period_500,500);
+       }
+
+    else
+        canceltimer(period_500);
+
+}
+
+
+//on envVar Envoi_trame_92
+//{
+//
+//    if(getvalue(this) == 1 && getvalue(PHASE_VIE) == 1)
+//
+//       {
+//       settimer(period_500,500);
+//       }
+//
+//    else
+//        canceltimer(period_500);
+//
+//}
+//
+//
+//on envVar Envoi_trame_122
+//{
+//
+//    if(getvalue(this) == 1 )//&& getvalue(phase_vie) == 1)
+//
+//       {
+//       settimer(period_500,500);
+//       }
+//
+//    else
+//        canceltimer(period_500);
+//
+//}
+
+
+on envVar Envoi_des_trames
+{
+
+    if(getvalue(this) == 1)
+       { 
+        putvalue(Envoi_trame_36,1);
+        putvalue(Envoi_trame_B6,1);
+        putvalue(Envoi_trame_F6,1);
+        putvalue(Envoi_trame_122,1);
+        putvalue(Envoi_trame_220,1);
+        putvalue(Envoi_trame_227,1);
+        putvalue(Envoi_trame_236,1);
+        putvalue(Envoi_trame_276,1);
+        putvalue(Envoi_trame_2AD,1);
+        putvalue(Envoi_trame_2ED,1);  
+        putvalue(Envoi_trame_363,1);
+        }    
+
+    else if(getvalue(this) == 0)
+        {
+        putvalue(Envoi_trame_36,0);
+        putvalue(Envoi_trame_B6,0);
+        putvalue(Envoi_trame_F6,0);
+        putvalue(Envoi_trame_122,0);
+        putvalue(Envoi_trame_220,0);
+        putvalue(Envoi_trame_227,0);
+        putvalue(Envoi_trame_236,0);
+        putvalue(Envoi_trame_276,0);
+        putvalue(Envoi_trame_2AD,0);
+        putvalue(Envoi_trame_2ED,0);  
+        putvalue(Envoi_trame_363,0);  
+          
+        }        
+}
+
+
+on timer period_500
+{
+    output(HS4_DONNEES_VSM_LENTES);
+    canceltimer(this);
+    settimer(this, 500);
+  
+    output(HS4_CDE_IHM_CLIM);
+    canceltimer(this);
+    Settimer(this, 500);
+  
+    output(HS4_VSM_INF_PROFILS_2);
+    canceltimer(this);
+    Settimer(this, 500);
+  
+    output(HS4_CDE_LED_PUSH);
+    canceltimer(this);
+    Settimer(this, 500);
+  
+    output(HS4_CDE_IHM_CLIM_2);
+    canceltimer(this);
+    Settimer(this, 500);
+  
+    
+}
+
+
+on timer period_1000
+{
+    output(HS4_DONNEES_VSM_LENTES_2);
+    canceltimer(this);
+    settimer(this, 1000);
+    
+    output(HS4_DONNEES_VSM_LENTES_3);
+    canceltimer(this);
+    settimer(this, 1000);
+    
+    output(HS4_INFO_IHM_3);
+    canceltimer(this);
+    settimer(this, 1000);
+}
+
+
+
+on timer period_100
+{
+    output(HS4_COMMANDES_VSM);  
+    settimer(this, 100);
+    
+}
+
+
+on timer period_50
+{
+    output(HS4_DONNEES_VSM_RAPIDES);
+    canceltimer(this);  
+    settimer(this, 50);
+    
+}
+
+
+on timer Timer_500
+
+{
+  setTimer (Timer_500,500);
+}
+
+on timer mise_en_veille 
+{
+    putvalue(PHASE_VIE, 0x00);
+
+}
+
+
+on timer reveil
+{   
+    putvalue(PHASE_VIE, 0x01);
+    
+    canceltimer(mise_en_veille);
+
+    putvalue(ETAT_PRINCIP_SEV, 1);
+
+}
+    
+on timer arret_contact
+{
+
+    putvalue(PHASE_VIE, 0x02);
+    settimer(mise_en_veille, 15000);
+
+}
+
+
+
+
+on timer period_Trame_acquittement
+{
+    
+    HS4_ACK_EVT_DEF.dlc=1;
+    HS4_ACK_EVT_DEF.dir=RX;
+    HS4_ACK_EVT_DEF.byte(0)=0x3B;
+    output(HS4_ACK_EVT_DEF);
+ 
+ack = 0;
+
+   
+}
+
+
+on timer period_Trame_bad_acquittement
+{
+    
+    HS4_ACK_EVT_DEF.dlc=1;
+    HS4_ACK_EVT_DEF.dir=RX;
+    /**** test avec mauvais code mux ****/
+    HS4_ACK_EVT_DEF.byte(0)=0x0B;
+    output(HS4_ACK_EVT_DEF);
+ 
+ack = 0;
+
+   
+}
+
+on envVar Acquit
+{
+  acq = getValue(this);
+}
+
+
+on message 0x4BB
+{
+
+/////////////////////////////////////////////////////////////////////////////
+int type_evt,Buff;
+
+Octet_Entete = this.byte(0);
+/////////////////////////////////////////////////////////////////////////////
+  
+  ack ++;
+  
+  if (ack == acq )
+    
+  {
+  
+
+    if(getvalue(EvI_SEND_ACK) == 1)
+        {
+          
+          if(getvalue(EvI_BAD_ACK) == 0)
+            {
+            
+            settimer(period_Trame_acquittement, 30);
+            
+            }
+            
+            
+           else 
+              
+             {
+            
+            settimer(period_Trame_bad_acquittement, 30);
+            
+            } 
+   
+       }
+            
+         
+
+  }
+/////////////////////////////////////////////////////////////////////////////
+  
+  if (ack == acq )
+  {
+    ack = 0;
+  }
+}
+
+
+
+
+
+
+on timer luch
+{
+
+            putvalue(VOY_LUCH, 1);
+            l = 1;
+
+}
+
+
+on timer PBC
+{
+
+            putvalue(VOY_PBC, 1);
+            l = 1;
+
+}
+
+
+
+on signal PHASE_VIE
+{
+
+
+    if(this == 0)
+    {
+        canceltimer(period_1000);
+        canceltimer(period_500);
+        canceltimer(period_100);
+        canceltimer(period_50);
+        canceltimer(Timer_500);
+
+  
+    }
+ 
+    
+
+    if(this == 1 && getvalue(Envoi_trame_227) == 1)
+        {
+        settimer(period_500, 500);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+       
+        putvalue(DIAG_MUX_ON, 0);
+        
+        
+    if(this == 1 && getvalue(Envoi_trame_2AD) == 1)
+        {
+        settimer(period_500, 500);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+        
+    if(this == 1 && getvalue(Envoi_trame_2ED) == 1)
+        {
+        settimer(period_500, 500);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);        
+
+
+    if(this == 1 && getvalue(Envoi_trame_36) == 1)
+        {
+        settimer(period_100, 100);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+
+
+    if(this == 1 && getvalue(Envoi_trame_F6) == 1)
+    {
+        settimer (period_500, 500);
+        putvalue(DIAG_MUX_ON, 1);
+    }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+
+
+    if(this == 1 && getvalue(Envoi_trame_236) == 1)
+    {
+        settimer (period_1000, 1000);
+        putvalue(DIAG_MUX_ON, 1);
+    }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+    
+    
+    if(this == 1 && getvalue(Envoi_trame_B6) == 1)
+    {
+        settimer (period_50, 50);
+        putvalue(DIAG_MUX_ON, 1);
+    }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+    
+    
+    
+    if(this == 1 && getvalue(Envoi_trame_276) == 1)
+        {
+        settimer(period_1000, 1000);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+        
+        
+    if(this == 1 && getvalue(Envoi_trame_363) == 1)
+        {
+        settimer(period_1000, 1000);
+        putvalue(DIAG_MUX_ON, 1);
+        }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+
+    if(this == 1 && getvalue(Envoi_trame_220) == 1)
+    {
+        settimer (period_500, 500);
+        putvalue(DIAG_MUX_ON, 1);
+    }
+
+    else
+        
+        putvalue(DIAG_MUX_ON, 0);
+
+    
+   
+    
+    if(this == 4)
+    {
+        canceltimer(period_1000);
+        canceltimer(period_500);
+//        canceltimer(period_100);
+        canceltimer(period_50);
+        canceltimer(Timer_500);
+      
+    }
+
+
+    if(this == 2)
+    {
+        canceltimer(period_1000);
+        canceltimer(period_500);
+//        canceltimer(period_100);
+        canceltimer(period_50);
+        canceltimer(Timer_500);
+
+    }
+
+}
+
+
+on envVar LUMINOSITE
+{
+
+    HS4_COMMANDES_VSM.LUMINOSITE = getvalue(this);
+
+
+   if(getvalue(this)>0x0F)
+    
+        putvalue(this, 0x0F);
+    
+
+}
+
+
+on envVar ETAT_JN
+{
+    HS4_COMMANDES_VSM.ETAT_JN = getvalue(this);
+}
+
+
+on envVar ETAT_JOUR_NUIT
+{
+    HS4_COMMANDES_VSM.ETAT_JOUR_NUIT = getvalue(this);
+}
+
+on envVar PHASE_VIE
+{
+
+    HS4_COMMANDES_VSM.PHASE_VIE = getvalue(this);
+    
+    output(HS4_COMMANDES_VSM);
+
+
+    if(getvalue(Envoi_trame_36) == 1)
+        {
+        settimer(period_100, 100);
+        }
+                  
+}
+
+on envVar INTERD_MEMO_DEF
+{
+    HS4_COMMANDES_VSM.INTERD_MEMO_DEF = getvalue(this);
+}
+
+
+on envVar COM_DIAG_INT_AUTOR
+{   
+    HS4_COMMANDES_VSM.COM_DIAG_INT_AUTOR = getvalue(this);
+}
+
+
+
+on envVar DIAG_MUX_ON
+{   
+    HS4_COMMANDES_VSM.DIAG_MUX_ON = getvalue(this);
+}
+
+on envVar DEM_EFFAC_DEF
+{
+    HS4_COMMANDES_VSM.DEM_EFFAC_DEF = getvalue(this);
+}
+
+
+on envVar SECU_ETAT_SEV
+{
+    HS4_COMMANDES_VSM.SECU_ETAT_SEV = getvalue(this);
+}
+
+
+on envVar VITV
+{
+    HS4_DONNEES_VSM_RAPIDES.VITV = getvalue(this);
+}
+
+
+on envVar ETAT_GMP
+{
+
+    HS4_DONNEES_VSM_LENTES.ETAT_GMP = getvalue(this);
+}
+
+on envVar ETAT_PRINCIP_SEV
+{
+
+    HS4_DONNEES_VSM_LENTES.ETAT_PRINCIP_SEV = getvalue(this);
+}
+
+on envVar KM_TOTAL
+{
+
+    HS4_DONNEES_VSM_LENTES.KM_TOTAL = getvalue(this);
+}
+
+
+
+
+
+on message HS4_COMMANDES_VSM
+{
+/*****************************************************************************************/
+
+/* 3 trames successives avec UB_MODE_HY = Infos non rafra chies en MODE_HY = ZEV */
+
+/*****************************************************************************************/
+
+    int h;
+
+
+    if (flag_hybride_1 == 1)
+         {
+        if (h < 2 ) h++;
+        else 
+            {
+            HS4_COMMANDES_VSM.byte(5) = 0x07;
+            flag_hybride_1 = 0;
+            h = 0;
+            }
+        }
+
+
+
+/*****************************************************************************************/
+
+/* 3 informations successives avec UB_MODE_HY = Infos rafra chies en MODE_HY = HY quand MODE_HY = ZEV avant */
+
+/*****************************************************************************************/
+
+
+
+    if (flag_hybride_2 == 1)
+         {
+        if (h < 1 ) h++; // envoie deux trames
+        //if (h < 2 ) h++; // envoie trois trames
+        else 
+            {
+            HS4_COMMANDES_VSM.byte(5) = 0x04;
+            flag_hybride_2 = 0;
+            h = 0;
+            }
+        }
+}
+
+
+
+
+on message HS4_ETAT_FMUX
+{
+
+
+    if (this.PUSH_1 == 1)
+            {
+            putvalue(PUSH_1, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_1, 0);
+            }
+
+
+    if (this.PUSH_2 == 1)
+            {
+            putvalue(PUSH_2, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_2, 0);
+            }
+
+
+    if (this.PUSH_3 == 1)
+            {
+            putvalue(PUSH_3, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_3, 0);
+            }
+
+            
+    if (this.PUSH_4 == 1)
+            {
+            putvalue(PUSH_4, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_4, 0);
+            }
+
+
+    if (this.PUSH_5 == 1)
+            {
+            putvalue(PUSH_5, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_5, 0);
+            }
+
+
+    if (this.PUSH_6 == 1)
+            {
+            putvalue(PUSH_6, 1);            
+            }
+    else
+            {     
+            putvalue(PUSH_6, 0);
+            }
+
+
+    if (this.PUSH_7 == 1)
+            {
+            putvalue(PUSH_7, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_7, 0);
+            }
+
+
+    if (this.PUSH_8 == 1)
+            {
+            putvalue(PUSH_8, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_8, 0);
+            }
+
+
+    if (this.PUSH_9 == 1)
+            {
+            putvalue(PUSH_9, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_9, 0);
+            }
+
+            
+    if (this.PUSH_10 == 1)
+            {
+            putvalue(PUSH_10, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_10, 0);
+            }
+
+
+    if (this.PUSH_11 == 1)
+            {
+            putvalue(PUSH_11, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_11, 0);
+            }
+
+
+    if (this.PUSH_12 == 1)
+            {
+            putvalue(PUSH_12, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_12, 0);
+            }
+
+
+    if (this.PUSH_13 == 1)
+            {
+            putvalue(PUSH_13, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_13, 0);
+            }
+
+
+    if (this.PUSH_14 == 1)
+            {
+            putvalue(PUSH_14, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_14, 0);
+            }
+
+
+    if (this.PUSH_15 == 1)
+            {
+            putvalue(PUSH_15, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_15, 0);
+            }
+
+
+    if (this.PUSH_16 == 1)
+            {
+            putvalue(PUSH_16, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_16, 0);
+            }
+
+
+
+    if (this.PUSH_17 == 1)
+            {
+            putvalue(PUSH_17, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_17, 0);
+            }
+
+
+    if (this.PUSH_18 == 1)
+            {
+            putvalue(PUSH_18, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_18, 0);
+            }
+
+
+
+    if (this.PUSH_19 == 1)
+            {
+            putvalue(PUSH_19, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_19, 0);
+            }
+
+            
+    if (this.PUSH_20 == 1)
+            {
+            putvalue(PUSH_20, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_20, 0);
+            }            
+            
+            
+    if (this.PUSH_21 == 1)
+            {
+            putvalue(PUSH_21, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_21, 0);
+            }
+
+
+    if (this.PUSH_22 == 1)
+            {
+            putvalue(PUSH_22, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_22, 0);
+            }
+
+
+    if (this.PUSH_23 == 1)
+            {
+            putvalue(PUSH_23, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_23, 0);
+            }
+
+            
+    if (this.PUSH_24 == 1)
+            {
+            putvalue(PUSH_24, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_24, 0);
+            }
+
+
+    if (this.PUSH_25 == 1)
+            {
+            putvalue(PUSH_25, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_25, 0);
+            }
+
+
+    if (this.PUSH_26 == 1)
+            {
+            putvalue(PUSH_26, 1);            
+            }
+    else
+            {     
+            putvalue(PUSH_26, 0);
+            }
+
+
+    if (this.PUSH_27 == 1)
+            {
+            putvalue(PUSH_27, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_27, 0);
+            }
+
+
+    if (this.PUSH_28 == 1)
+            {
+            putvalue(PUSH_28, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_28, 0);
+            }
+
+
+    if (this.PUSH_29 == 1)
+            {
+            putvalue(PUSH_29, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_29, 0);
+            }
+
+            
+    if (this.PUSH_30 == 1)
+            {
+            putvalue(PUSH_30, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_30, 0);
+            }
+
+
+    if (this.PUSH_31 == 1)
+            {
+            putvalue(PUSH_31, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_31, 0);
+            }
+
+
+    if (this.PUSH_32 == 1)
+            {
+            putvalue(PUSH_32, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_32, 0);
+            }
+
+
+    if (this.PUSH_33 == 1)
+            {
+            putvalue(PUSH_33, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_33, 0);
+            }
+
+
+    if (this.PUSH_34 == 1)
+            {
+            putvalue(PUSH_34, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_34, 0);
+            }
+
+
+    if (this.PUSH_35 == 1)
+            {
+            putvalue(PUSH_35, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_35, 0);
+            }
+
+
+    if (this.PUSH_36 == 1)
+            {
+            putvalue(PUSH_36, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_36, 0);
+            }
+
+
+    if (this.PUSH_37 == 1)
+            {
+            putvalue(PUSH_37, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_37, 0);
+            }
+
+
+    if (this.PUSH_38 == 1)
+            {
+            putvalue(PUSH_38, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_38, 0);
+            }
+
+
+
+    if (this.PUSH_39 == 1)
+            {
+            putvalue(PUSH_39, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_39, 0);
+            }
+
+            
+    if (this.PUSH_40 == 1)
+            {
+            putvalue(PUSH_40, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_40, 0);
+            }
+            
+            
+    if (this.PUSH_41 == 1)
+            {
+            putvalue(PUSH_41, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_41, 0);
+            }
+            
+                        
+    if (this.PUSH_42 == 1)
+            {
+            putvalue(PUSH_42, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_42, 0);
+            }
+            
+            
+    if (this.PUSH_43 == 1)
+            {
+            putvalue(PUSH_43, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_43, 0);
+            }
+            
+            
+    if (this.PUSH_44 == 1)
+            {
+            putvalue(PUSH_44, 1);
+            }
+    else
+            {     
+            putvalue(PUSH_44, 0);
+            }            
+
+            
+    putvalue(CPT_MOL_FAC_1, this.CPT_MOL_FAC_1);   
+    
+            
+    putvalue(CPT_MOL_FAC_2, this.CPT_MOL_FAC_2); 
+     
+            
+    if (this.SYNC_MOL_FAC_1 == 0)
+            {
+            putvalue(SYNC_MOL_FAC_1, 0);
+            }
+    else
+            {     
+            putvalue(SYNC_MOL_FAC_1, 1);
+            }
+            
+                                 
+    if (this.SYNC_MOL_FAC_2 == 0)
+            {
+            putvalue(SYNC_MOL_FAC_2, 0);
+            }
+    else
+            {     
+            putvalue(SYNC_MOL_FAC_2, 1);
+            } 
+            
+            
+}
+
+on envVar UNITE_TEMPERATURE
+{
+   
+        if(GetValue(this) == 1)
+           HS4_VSM_INF_PROFILS_2.UNITE_TEMPERATURE = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_VSM_INF_PROFILS_2.UNITE_TEMPERATURE = 0;
+        
+}
+
+on envVar DISPO_UNITES_LANGUE
+{
+   
+        if(GetValue(this) == 1)
+           HS4_VSM_INF_PROFILS_2.DISPO_UNITES_LANGUE = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_VSM_INF_PROFILS_2.DISPO_UNITES_LANGUE = 0;
+    
+    
+}
+
+
+on envVar MODE_CONFIG_VHL
+{
+    HS4_DONNEES_VSM_LENTES_2.MODE_CONFIG_VHL = getvalue(this);
+}
+
+on envVar ETAT_RESEAU_ELEC
+{
+    HS4_DONNEES_VSM_LENTES_2.ETAT_RESEAU_ELEC = getvalue(this);
+}
+
+on envVar CPT_TEMPOREL
+{
+    HS4_DONNEES_VSM_LENTES_2.CPT_TEMPOREL = getvalue(this);
+}
+
+
+on envVar CTX_JDD
+{
+    HS4_DONNEES_VSM_LENTES_2.CTX_JDD = getvalue(this);
+}
+
+
+on envVar COMPTEUR_RAZ_GCT
+{
+    HS4_DONNEES_VSM_LENTES_2.COMPTEUR_RAZ_GCT = getvalue(this);
+}
+
+
+on envVar PRESENCE_CRT
+{
+   
+        if(GetValue(this) == 1)
+            HS4_DONNEES_VSM_LENTES_2.PRESENCE_CRT = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_DONNEES_VSM_LENTES_2.PRESENCE_CRT = 0;     
+    
+}
+
+
+on envVar ANNEE_HORLOGE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.ANNEE_HORLOGE = getvalue(this);
+
+
+   if(getvalue(this)>0x84D)
+    
+        putvalue(this, 0x84D);
+    
+
+}
+
+
+on envVar MODE_HEURE_CLIENT
+{
+   
+        if(GetValue(this) == 1)
+          HS4_DONNEES_VSM_LENTES_3.MODE_HEURE_CLIENT = 1;
+            
+        else if (GetValue(this) == 0)
+          HS4_DONNEES_VSM_LENTES_3.MODE_HEURE_CLIENT = 0;
+        
+}
+
+on envVar MOIS_HORLOGE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.MOIS_HORLOGE = getvalue(this);
+     
+
+}
+
+
+
+on envVar AFFICHAGE_HORLOGE
+{
+   
+        if(GetValue(this) == 1)
+          HS4_DONNEES_VSM_LENTES_3.AFFICHAGE_HORLOGE = 1;
+            
+        else if (GetValue(this) == 0)
+          HS4_DONNEES_VSM_LENTES_3.AFFICHAGE_HORLOGE = 0;
+        
+}
+
+
+on envVar ETAT_CONDA
+{
+    
+  HS4_DONNEES_VSM_LENTES_3.ETAT_CONDA = getvalue(this);
+  
+}
+
+
+
+
+on envVar JOUR_HORLOGE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.JOUR_HORLOGE = getvalue(this);
+  
+  
+    if(getvalue(this)>0x1F)
+    
+        putvalue(this, 0x1F);
+
+
+}
+
+
+
+on envVar EE_ARCHITECTURE
+{
+   
+        if(GetValue(this) == 1)
+          HS4_DONNEES_VSM_LENTES_3.EE_ARCHITECTURE = 1;
+            
+        else if (GetValue(this) == 0)
+          HS4_DONNEES_VSM_LENTES_3.EE_ARCHITECTURE = 0;
+        
+}
+
+
+on envVar HEURE_HORLOGE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.HEURE_HORLOGE = getvalue(this);
+  
+  
+    if(getvalue(this)>0x3C)
+    
+        putvalue(this, 0x3C);
+
+
+}
+
+
+on envVar MINUTE_HORLOGE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.MINUTE_HORLOGE = getvalue(this);
+  
+  
+    if(getvalue(this)>0x18)
+    
+        putvalue(this, 0x18);
+
+
+}
+
+
+
+on envVar DEEP_SLEEP_MODE
+{
+   
+        if(GetValue(this) == 1)
+          HS4_DONNEES_VSM_LENTES_3.DEEP_SLEEP_MODE = 1;
+            
+        else if (GetValue(this) == 0)
+          HS4_DONNEES_VSM_LENTES_3.DEEP_SLEEP_MODE = 0;
+        
+}
+
+
+on envVar AUTONOMIE_UREE
+{
+
+    HS4_DONNEES_VSM_LENTES_3.AUTONOMIE_UREE = getvalue(this);
+  
+  
+    if(getvalue(this)>0x2710)
+    
+        putvalue(this, 0x2710);
+
+
+}
+
+
+on envVar DMD_AFF_AUTON_UREE
+{
+    HS4_DONNEES_VSM_LENTES_3.DMD_AFF_AUTON_UREE = getvalue(this);
+}
+
+
+on envVar POS_SHUNT_JDD
+{   
+    
+            
+        HS4_DONNEES_VSM_LENTES_3.POS_SHUNT_JDD = getvalue(this);
+
+
+}
+
+
+
+on envVar ETAT_SELECTIVITE_OUV_AR
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_SELECTIVITE_OUV_AR = getvalue(this);
+}
+
+
+
+on envVar ETAT_SELECTIVITE_COND
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_SELECTIVITE_COND = getvalue(this);
+}
+
+
+
+on envVar ETAT_SELECTIVITE_CAB_ZC
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_SELECTIVITE_CAB_ZC = getvalue(this);
+}
+
+
+
+on envVar ETAT_SELECTIVITE
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_SELECTIVITE = getvalue(this);
+}
+
+
+
+on envVar ETAT_CONDA_OUV_AR
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_CONDA_OUV_AR = getvalue(this);
+}
+
+
+on envVar ETAT_CONDA_COFFRE
+{
+    HS4_DONNEES_VSM_LENTES_3.ETAT_CONDA_COFFRE = getvalue(this);
+}
+
+
+
+
+on envVar TYPE_CLIM
+{   
+    
+            
+        HS4_CDE_IHM_CLIM.TYPE_CLIM = getvalue(this);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+on envVar VOY_LUCH
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM.VOY_LUCH = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM.VOY_LUCH = 0;
+         
+}
+
+on envVar CMD_LED_HEATING_STRWHL
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM.CMD_LED_HEATING_STRWHL = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM.CMD_LED_HEATING_STRWHL = 0;
+         
+}
+
+
+On envVar PRESENCE_PBC
+{
+   
+        if(GetValue(this) == 1)
+           HS4_CDE_IHM_CLIM.PRESENCE_PBC = 1;
+            
+        else if (GetValue(this) == 0)
+           HS4_CDE_IHM_CLIM.PRESENCE_PBC = 0;
+    
+}
+
+
+
+
+on envVar VOY_PBC
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM.VOY_PBC = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM.VOY_PBC = 0;
+         
+}
+
+
+on envVar CONS_TEMP_CENT
+{
+    HS4_CDE_IHM_CLIM.CONS_TEMP_CENT = getvalue(this);
+}
+
+
+on envVar ETAT_ELEC_IHM_CLIM
+{
+   
+        HS4_CDE_IHM_CLIM.ETAT_ELEC_IHM_CLIM = getvalue(this);
+         
+}
+
+
+
+on envVar LEDLTG_QUICKSTRTCMFT
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM.LEDLTG_QUICKSTRTCMFT = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM.LEDLTG_QUICKSTRTCMFT = 0;
+         
+}
+
+
+
+on envVar ETAT_MONO
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM_2.ETAT_MONO = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM_2.ETAT_MONO = 0;
+         
+}
+
+
+on envVar ETAT_AC_MAX
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM_2.ETAT_AC_MAX = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM_2.ETAT_AC_MAX = 0;
+         
+}
+
+
+on envVar DMD_VISI
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM_2.DMD_VISI = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM_2.DMD_VISI = 0;
+         
+}
+
+
+on envVar DMD_VISI_Fige
+{
+
+    
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM_2.DMD_VISI = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM_2.DMD_VISI = 0;
+
+ 
+
+}
+
+
+
+
+on envVar ENTREE_AIR
+{
+   
+      HS4_CDE_IHM_CLIM_2.ENTREE_AIR = getvalue(this);
+         
+}
+
+on envVar ETAT_REAR
+{
+   
+      HS4_CDE_IHM_CLIM_2.ETAT_REAR = getvalue(this);
+         
+}
+
+
+
+on envVar DMD_AC
+{
+   
+      HS4_CDE_IHM_CLIM_2.DMD_AC = getvalue(this);
+         
+}
+
+
+on envVar DISTRIBUTION_AVG
+{
+   
+      HS4_CDE_IHM_CLIM_2.DISTRIBUTION_AVG = getvalue(this);
+         
+}
+
+on envVar DISTRIBUTION_AVD
+{
+   
+      HS4_CDE_IHM_CLIM_2.DISTRIBUTION_AVD = getvalue(this);
+         
+}
+
+on envVar ETAT_AUTO_AVC
+{
+   
+        if(GetValue(this) == 1)
+            HS4_CDE_IHM_CLIM_2.ETAT_AUTO_AVC = 1;
+            
+        else if (GetValue(this) == 0)
+            HS4_CDE_IHM_CLIM_2.ETAT_AUTO_AVC = 0;
+         
+}
+
+
+
+on envVar VAL_CONS_TEMP_AVD
+{
+   
+      HS4_CDE_IHM_CLIM_2.VAL_CONS_TEMP_AVD = getvalue(this);
+         
+}
+
+on envVar VAL_CONS_TEMP_AVG
+{
+   
+      HS4_CDE_IHM_CLIM_2.VAL_CONS_TEMP_AVG = getvalue(this);
+         
+}
+
+
+
+
+on envVar DMD_REAR_LOCKED
+{
+   
+        HS4_INFO_IHM_3.DMD_REAR_LOCKED = getvalue(this);
+         
+}
+
+
+on envVar SORTIE_PUSH_FREIN_SEC_ELE
+{
+   
+        HS4_CDE_LED_PUSH.SORTIE_PUSH_FREIN_SEC_ELE = getvalue(this);
+         
+}
+
+on envVar P_LED_HADC_PUSH
+{
+   
+        HS4_CDE_LED_PUSH.P_LED_HADC_PUSH = getvalue(this);
+         
+}
+
+
+//on envVar SYNC_MOL_FAC_1
+//{
+//    HS4_ETAT_FMUX.SYNC_MOL_FAC_1 = getvalue(this);
+//}
+//
+//on envVar SYNC_MOL_FAC_2
+//{
+//    HS4_ETAT_FMUX.SYNC_MOL_FAC_2 = getvalue(this);
+//}
+
+//HS4_ETAT_PUSH_PHYS
+
+//on envVar DMDP_TEMP_AVD_MOINS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVD_MOINS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVD_MOINS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+
+
+//
+//on envVar DMDP_TEMP_AVD_PLUS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVD_PLUS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVD_PLUS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+//on envVar DMDP_NIVEAU_TEMP_AVG_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_TEMP_AVG_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_TEMP_AVG_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+//on envVar DMDP_TEMP_AVG_MOINS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVG_MOINS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVG_MOINS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+
+
+
+//
+//on envVar DMDP_TEMP_AVG_PLUS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVG_PLUS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_TEMP_AVG_PLUS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+
+
+//
+//
+//on envVar DMDP_VISIBILITE_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_VISIBILITE_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_VISIBILITE_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+//on envVar DMDP_NIVEAU_PULSEUR_AV_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_PULSEUR_AV_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_PULSEUR_AV_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+//on envVar DMDP_CHGT_CHAUF_PARE_BRISE
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_CHAUF_PARE_BRISE = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_CHAUF_PARE_BRISE = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+//
+//
+//on envVar DMDP_AUTO_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+//
+//
+//on envVar BTNPSD_QUICKSTRTCMFT
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.BTNPSD_QUICKSTRTCMFT = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.BTNPSD_QUICKSTRTCMFT = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+//on envVar DMDP_AC_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AC_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AC_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_AC_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_AC_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_AC_PHYS_Fige,0);
+//
+//}
+//
+//
+//on envVar REQ_HEATING_STRWHL
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.REQ_HEATING_STRWHL = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.REQ_HEATING_STRWHL = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DEFAUT_MOLETTE_PULS_AV
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_PULS_AV = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_PULS_AV = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DEFAUT_MOLETTE_TEMP_AVD
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_TEMP_AVD = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_TEMP_AVD = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//on envVar DMDP_AC_MAX_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AC_MAX_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AC_MAX_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DEFAUT_MOLETTE_TEMP_AVG
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_TEMP_AVG = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DEFAUT_MOLETTE_TEMP_AVG = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_3LVL_HEAT_SEAT_FL
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_FL = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_FL = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_3LVL_HEAT_SEAT_FR
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_FR = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_FR = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_3LVL_FAN_SEAT_FL
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_FL = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_FL = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//
+//on envVar DMDP_3LVL_FAN_SEAT_FR
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_FR = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_FR = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_AUTO_FORT_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_FORT_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_FORT_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_AUTO_FORT_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_AUTO_FORT_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_AUTO_FORT_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_AUTO_LEGER_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_LEGER_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_LEGER_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_AUTO_LEGER_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_AUTO_LEGER_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_AUTO_LEGER_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_AUTO_NORMAL_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_NORMAL_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_AUTO_NORMAL_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_AUTO_NORMAL_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_AUTO_NORMAL_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_AUTO_NORMAL_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_CHGT_DEGIVRAGE_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_DEGIVRAGE_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_DEGIVRAGE_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_CHGT_NIVEAU_SLIDER_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_NIVEAU_SLIDER_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_CHGT_NIVEAU_SLIDER_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//
+//on envVar DMDP_DIST_AVD_AERATION_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_AERATION_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_AERATION_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVD_AERATION_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_AERATION_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_AERATION_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_DIST_AVD_DEGI_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_DEGI_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_DEGI_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVD_DEGI_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_DEGI_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_DEGI_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_DIST_AVD_PIED_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_PIED_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVD_PIED_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_DIST_AVD_PIED_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_PIED_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_PIED_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//
+//on envVar DMDP_DIST_AVG_AERATION_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_AERATION_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_AERATION_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVG_AERATION_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_AERATION_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_AERATION_PHYS_Fige,0);
+//
+//}
+//
+//
+//
+//on envVar DMDP_DIST_AVG_DEGI_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_DEGI_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_DEGI_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVG_DEGI_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_DEGI_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_DEGI_PHYS_Fige,0);
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVG_PIED_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_PIED_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_DIST_AVG_PIED_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_DIST_AVG_PIED_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_DIST_AVD_PIED_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_DIST_AVD_PIED_PHYS_Fige,0);
+//
+//}
+//
+//
+//on envVar DMDP_ENTREE_AIR_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_ENTREE_AIR_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_ENTREE_AIR_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_MONO_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_MONO_PHYS = 1;
+//        output(HS4_CDE_IHM_CLIM_2);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_MONO_PHYS = 0;
+//        output(HS4_CDE_IHM_CLIM_2);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_OFF_AV_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_OFF_AV_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_OFF_AV_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_PULSEUR_AV_MOINS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_PULSEUR_AV_MOINS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_PULSEUR_AV_MOINS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+
+
+
+
+
+//on envVar DMDP_PULSEUR_AV_MOINS_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_PULSEUR_AV_MOINS_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_PULSEUR_AV_MOINS_PHYS_Fige,0);
+//
+//}
+//
+//
+//on envVar DMDP_PULSEUR_AV_PLUS_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_PULSEUR_AV_PLUS_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_PULSEUR_AV_PLUS_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+
+
+//on envVar DMDP_PULSEUR_AV_PLUS_PHYS_Fige
+//{
+//
+//    if(getvalue(this) == 1)
+//        putvalue(DMDP_PULSEUR_AV_PLUS_PHYS_Fige,1);
+//
+//    else
+//        putvalue(DMDP_PULSEUR_AV_PLUS_PHYS_Fige,0);
+//
+//}
+
+//on envVar DMDP_NIVEAU_TEMP_AVD_PHYS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_TEMP_AVD_PHYS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_TEMP_AVD_PHYS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+//on envVar ENT_PUSH_SAM
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.ENT_PUSH_SAM = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.ENT_PUSH_SAM = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//on envVar HW_LED_HADC_PUSH
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.HW_LED_HADC_PUSH = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.HW_LED_HADC_PUSH = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+//on envVar DMD_PULSEUR_PLUS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_PULSEUR_PLUS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_PULSEUR_PLUS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//
+//on envVar DMD_PULSEUR_MOINS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_PULSEUR_MOINS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_PULSEUR_MOINS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMD_AUTO
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_AUTO = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_AUTO = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMD_TEMP_MOINS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_TEMP_MOINS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_TEMP_MOINS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMD_TEMP_PLUS
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_TEMP_PLUS = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMD_TEMP_PLUS = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_3LVL_HEAT_SEAT_RR
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_RR = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_RR = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_3LVL_HEAT_SEAT_RL
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_RL = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_HEAT_SEAT_RL = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//on envVar DMDP_3LVL_FAN_SEAT_RL
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_RL = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_RL = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+//
+//
+//
+//on envVar DMDP_3LVL_FAN_SEAT_RR
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_RR = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_3LVL_FAN_SEAT_RR = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+
+//on envVar DMDP_NIVEAU_PULSEUR_ARG
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_PULSEUR_ARG = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.DMDP_NIVEAU_PULSEUR_ARG = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+
+
+
+//on envVar HADC_PUSH_STATE
+//{
+//
+//    if(GetValue(this) == 1)
+//        {
+//        HS4_ETAT_PUSH_PHYS.HADC_PUSH_STATE = 1;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }        
+//
+//    else 
+//        {
+//        HS4_ETAT_PUSH_PHYS.HADC_PUSH_STATE = 0;
+//        output(HS4_ETAT_PUSH_PHYS);
+//        }
+//
+//
+//
+//}
+
+on envVar PULS_AV
+{   
+    
+    HS4_CDE_IHM_CLIM_2.PULS_AV = getvalue(this);
+
+
+}
+
+on envVar ETAT_PULSEUR
+{   
+    
+    HS4_CDE_IHM_CLIM_2.ETAT_PULSEUR = getvalue(this);
+
+
+}
+
+
+on signal FMUX::DISTRIBUTION_AVG
+{
+  if(this==0)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,0);
+    putValue(Sortie_DIST_AVG_AERATION,0);
+    putValue(Sortie_DIST_AVG_PIED,0); 
+  }
+   if(this==1)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,0);
+    putValue(Sortie_DIST_AVG_AERATION,0);
+    putValue(Sortie_DIST_AVG_PIED,0); 
+  }
+   if(this==2)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,0);
+    putValue(Sortie_DIST_AVG_AERATION,0);
+    putValue(Sortie_DIST_AVG_PIED,1); 
+  }
+   if(this==3)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,0);
+    putValue(Sortie_DIST_AVG_AERATION,1);
+    putValue(Sortie_DIST_AVG_PIED,0); 
+  }
+   if(this==4)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,1);
+    putValue(Sortie_DIST_AVG_AERATION,0);
+    putValue(Sortie_DIST_AVG_PIED,0); 
+  }
+   if(this==5)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,0);
+    putValue(Sortie_DIST_AVG_AERATION,1);
+    putValue(Sortie_DIST_AVG_PIED,1); 
+  }
+   if(this==6)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,1);
+    putValue(Sortie_DIST_AVG_AERATION,0);
+    putValue(Sortie_DIST_AVG_PIED,1); 
+  }
+   if(this==7)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,1);
+    putValue(Sortie_DIST_AVG_AERATION,1);
+    putValue(Sortie_DIST_AVG_PIED,0); 
+  }
+   if(this==8)
+  {
+    putValue(Sortie_DIST_AVG_DEGI,1);
+    putValue(Sortie_DIST_AVG_AERATION,1);
+    putValue(Sortie_DIST_AVG_PIED,1); 
+  }
+}
+
+on signal FMUX::DISTRIBUTION_AVD
+{
+  if(this==0)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,0);
+    putValue(Sortie_DIST_AVD_AERATION,0);
+    putValue(Sortie_DIST_AVD_PIED,0); 
+  }
+   if(this==1)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,0);
+    putValue(Sortie_DIST_AVD_AERATION,0);
+    putValue(Sortie_DIST_AVD_PIED,0); 
+  }
+   if(this==2)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,0);
+    putValue(Sortie_DIST_AVD_AERATION,0);
+    putValue(Sortie_DIST_AVD_PIED,1); 
+  }
+   if(this==3)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,0);
+    putValue(Sortie_DIST_AVD_AERATION,1);
+    putValue(Sortie_DIST_AVD_PIED,0); 
+  }
+   if(this==4)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,1);
+    putValue(Sortie_DIST_AVD_AERATION,0);
+    putValue(Sortie_DIST_AVD_PIED,0); 
+  }
+   if(this==5)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,0);
+    putValue(Sortie_DIST_AVD_AERATION,1);
+    putValue(Sortie_DIST_AVD_PIED,1); 
+  }
+   if(this==6)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,1);
+    putValue(Sortie_DIST_AVD_AERATION,0);
+    putValue(Sortie_DIST_AVD_PIED,1); 
+  }
+   if(this==7)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,1);
+    putValue(Sortie_DIST_AVD_AERATION,1);
+    putValue(Sortie_DIST_AVD_PIED,0); 
+  }
+   if(this==8)
+  {
+    putValue(Sortie_DIST_AVD_DEGI,1);
+    putValue(Sortie_DIST_AVD_AERATION,1);
+    putValue(Sortie_DIST_AVD_PIED,1); 
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+on message HS4_CDE_IHM_CLIM
+{
+        switch (this.CONS_TEMP_CENT)
+        {
+
+        case 0 : putvalue(CONS_TEMP_CENT, 0x0);
+                break;
+        
+        case 1 : putvalue(CONS_TEMP_CENT, 0x1);
+                break;
+
+        case 2 : putvalue(CONS_TEMP_CENT, 0x2);
+                break;
+
+        case 3 : putvalue(CONS_TEMP_CENT, 0x3);
+                break;
+
+        case 4 : putvalue(CONS_TEMP_CENT, 0x4);
+                break;
+
+        case 5 : putvalue(CONS_TEMP_CENT, 0x5);
+                break;
+
+        case 6 : putvalue(CONS_TEMP_CENT, 0x6);
+                break;
+
+        case 7 : putvalue(CONS_TEMP_CENT, 0x7);
+                break;
+
+        }
+        
+        
+        switch (this.ETAT_ELEC_IHM_CLIM)
+        {
+
+        case 0 : putvalue(CONS_TEMP_CENT, 0x0);
+                break;
+        
+        case 1 : putvalue(CONS_TEMP_CENT, 0x1);
+                break;
+
+        case 2 : putvalue(CONS_TEMP_CENT, 0x2);
+                break;
+
+        }
+        
+        
+}
+
+
+
+on message HS4_CDE_IHM_CLIM_2
+{
+
+/***************************************************************************************/
+
+//    switch(this.DISTRIBUTION_AVG)
+//        {
+//        case 0 : putvalue(DISTRIBUTION_AVG, "Auto confort");
+//                 
+//        break;
+//
+//        case 1 : putvalue(DISTRIBUTION_AVG, "Auto visibilit ");
+//                 
+//        break;
+//        
+//        case 2 : putvalue(DISTRIBUTION_AVG, "Pied");
+//                   
+//        break;
+//
+//        case 3 : putvalue(DISTRIBUTION_AVG, "Aeration");
+//                 
+//        break;
+//
+//        case 4 : putvalue(DISTRIBUTION_AVG, "Degivrage");
+//                 
+//        break;
+//
+//        case 5 : putvalue(DISTRIBUTION_AVG, "Pied Aeration");
+//
+//        break;
+//
+//        case 6 : putvalue(DISTRIBUTION_AVG, "Pied Degivrage");
+//                
+//        break;
+//
+//        case 7 : putvalue(DISTRIBUTION_AVG, "Aeration Degivrage");
+//                 
+//        break;
+//
+//        case 8 : putvalue(DISTRIBUTION_AVG, "Pied Aeration Degivrage");
+//                 
+//        break;
+//
+//        case 9 : putvalue(DISTRIBUTION_AVG, "Different de degivrage");
+//                 
+//        break;
+//
+//        default:;
+//        
+//        break;
+//        }
+
+/***************************************************************************************/
+//
+//    switch(this.DISTRIBUTION_AVD)
+//        {
+//        case 0 : putvalue(DISTRIBUTION_AVD, "Auto confort");
+//                 
+//        break;
+//
+//        case 1 : putvalue(DISTRIBUTION_AVD, "Auto visibilit ");
+//                 
+//        break;
+//        
+//        case 2 : putvalue(DISTRIBUTION_AVD, "Pied");
+//                   
+//        break;
+//
+//        case 3 : putvalue(DISTRIBUTION_AVD, "A ration");
+//                 
+//        break;
+//
+//        case 4 : putvalue(DISTRIBUTION_AVD, "D givrage");
+//                 
+//        break;
+//
+//        case 5 : putvalue(DISTRIBUTION_AVD, "Pied A ration");
+//
+//        break;
+//
+//        case 6 : putvalue(DISTRIBUTION_AVD, "Pied D givrage");
+//                
+//        break;
+//
+//        case 7 : putvalue(DISTRIBUTION_AVD, "A ration D givrage");
+//                 
+//        break;
+//
+//        case 8 : putvalue(DISTRIBUTION_AVD, "Pied A ration D givrage");
+//                 
+//        break;
+//
+//        case 9 : putvalue(DISTRIBUTION_AVD, "Diff rent de d givrage");
+//                 
+//        break;
+//
+//        default:;
+//        
+//        break;
+//        }
+
+/*****************************************************************************************/
+
+    switch(this.PULS_AV)
+        {
+        case 0 : putvalue(PULS_AV, 0x0);
+                 
+        break;
+
+        case 1 : putvalue(PULS_AV, 0x1);
+                 
+        break;
+        
+        case 2 : putvalue(PULS_AV, 0x2);
+                 
+        break;
+
+        case 3 : putvalue(PULS_AV, 0x3);
+                 
+        break;
+
+        case 4 : putvalue(PULS_AV, 0x4);
+                 
+        break;
+
+        case 5 : putvalue(PULS_AV, 0x5);
+                
+        break;
+
+        case 6 : putvalue(PULS_AV, 0x6);
+                
+        break;
+
+        case 7 : putvalue(PULS_AV, 0x7);
+                 
+        break;
+
+        case 8 : putvalue(PULS_AV, 0x8);
+                 
+        break;
+
+        case 9 : putvalue(PULS_AV, 0x9);
+                 
+        break;
+
+        default:;
+        break;
+        }
+
+/*****************************************************************************************/  
+
+//    switch(this.DMD_AC)
+//            {
+//            case 0 : putvalue(DMD_AC, "Auto confort");                   
+//
+//            break;
+//
+//            case 1 : putvalue(DMD_AC, "Auto visibilit ");
+//              
+//            break;
+//        
+//            case 2 : putvalue(DMD_AC, "OFF");               
+//                 
+//            break;
+//
+//            case 3 : putvalue(DMD_AC, "Invalide");
+//                 
+//            break;
+//
+//            default:;
+//            
+//        break;
+//            }
+            
+/*****************************************************************************************/
+
+     switch(this.DMD_SIEGE_CHAUF_AVG)
+            {
+            case 0 : putvalue(DMD_SIEGE_CHAUF_AVG, "pas de commande");
+                 
+            break;
+
+            case 1 : putvalue(DMD_SIEGE_CHAUF_AVG, "niveau 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_SIEGE_CHAUF_AVG, "niveau 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_SIEGE_CHAUF_AVG, "niveau 3");
+                              
+            break;
+
+            default:;
+            break;
+            }           
+            
+/*****************************************************************************************/
+
+     switch(this.DMD_SIEGE_CHAUF_AVD)
+            {
+            case 0 : putvalue(DMD_SIEGE_CHAUF_AVD, "pas de commande");
+                 
+            break;
+
+            case 1 : putvalue(DMD_SIEGE_CHAUF_AVD, "niveau 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_SIEGE_CHAUF_AVD, "niveau 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_SIEGE_CHAUF_AVD, "niveau 3");
+                              
+            break;
+
+            default:;
+            break;
+            }  
+            
+/*****************************************************************************************/    
+            
+     switch(this.DMD_SIEGE_VENTIL_AVG)
+            {
+            case 0 : putvalue(DMD_SIEGE_VENTIL_AVG, "pas de commande");
+                 
+            break;
+
+            case 1 : putvalue(DMD_SIEGE_VENTIL_AVG, "niveau 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_SIEGE_VENTIL_AVG, "niveau 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_SIEGE_VENTIL_AVG, "niveau 3");
+                              
+            break;
+
+            default:;
+            break;
+            }           
+            
+/*****************************************************************************************/
+
+     switch(this.DMD_SIEGE_VENTIL_AVD)
+            {
+            case 0 : putvalue(DMD_SIEGE_VENTIL_AVD, "pas de commande");
+                 
+            break;
+
+            case 1 : putvalue(DMD_SIEGE_VENTIL_AVD, "niveau 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_SIEGE_VENTIL_AVD, "niveau 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_SIEGE_VENTIL_AVD, "niveau 3");
+                              
+            break;
+
+            default:;
+            break;
+            }            
+
+/*****************************************************************************************/
+    switch(this.VAL_CONS_TEMP_AVD)
+        {
+        case 0 : putvalue(VAL_CONS_TEMP_AVD, 0);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 7));
+                 
+        break;
+
+        case 1 : putvalue(VAL_CONS_TEMP_AVD, 1);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 7));
+                 
+        break;
+        
+        case 2 : putvalue(VAL_CONS_TEMP_AVD, 2);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 6));
+                 
+        break;
+
+        case 3 : putvalue(VAL_CONS_TEMP_AVD, 3);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 5));
+                 
+        break;
+
+        case 4 : putvalue(VAL_CONS_TEMP_AVD, 4);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 4));
+                 
+        break;
+
+        case 5 : putvalue(VAL_CONS_TEMP_AVD, 5);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 3));
+                
+        break;
+
+        case 6 : putvalue(VAL_CONS_TEMP_AVD, 6);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 2.5));
+                
+        break;
+
+        case 7 : putvalue(VAL_CONS_TEMP_AVD, 7);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 2));
+                 
+        break;
+
+        case 8 : putvalue(VAL_CONS_TEMP_AVD, 8);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 1.5));
+                 
+        break;
+
+        case 9 : putvalue(VAL_CONS_TEMP_AVD, 9);
+                 putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 1));
+                 
+        break;
+
+        case 0x0A : putvalue(VAL_CONS_TEMP_AVD, 10);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 - 0.5));
+                 
+        break;
+
+        case 0x0B : putvalue(VAL_CONS_TEMP_AVD, 11);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18));
+                 
+        break;
+        
+        case 0x0C : putvalue(VAL_CONS_TEMP_AVD, 12);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 0.5));
+                 
+        break;
+        
+        case 0x0D : putvalue(VAL_CONS_TEMP_AVD, 13);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 1));
+                 
+        break;
+        
+        case 0x0E : putvalue(VAL_CONS_TEMP_AVD, 14);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 1.5));
+                 
+        break;
+        
+        case 0x0F : putvalue(VAL_CONS_TEMP_AVD, 15);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 2));
+                 
+        break;
+        
+        case 0x10 : putvalue(VAL_CONS_TEMP_AVD, 16);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 2.5));
+                 
+        break;   
+        
+        case 0x11 : putvalue(VAL_CONS_TEMP_AVD, 17);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 3));
+                 
+        break;
+        
+        case 0x12 : putvalue(VAL_CONS_TEMP_AVD, 18);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 4));
+                 
+        break;
+        
+        case 0x13 : putvalue(VAL_CONS_TEMP_AVD, 19);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 5));
+                 
+        break;
+        
+        case 0x14 : putvalue(VAL_CONS_TEMP_AVD, 20);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 6));
+                 
+        break;
+        
+        case 0x15 : putvalue(VAL_CONS_TEMP_AVD, 21);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 7));
+                       
+                 
+        break;
+        
+        case 0x16 : putvalue(VAL_CONS_TEMP_AVD, 22);
+                    putvalue(VAL_CONS_TEMP_AVD_num, (getvalue(CONS_TEMP_CENT) + 18 + 7));
+                 
+        break;
+             
+        default:;
+        break;
+        }
+
+ /*****************************************************************************************/    
+
+//     switch(this.ENTREE_AIR)
+//            {
+//            case 0 : putvalue(ENTREE_AIR, 0x1);
+//                 
+//            break;
+//
+//            case 1 : putvalue(ENTREE_AIR, 0x2);
+//                 
+//            break;
+//        
+//            case 2 : putvalue(ENTREE_AIR, 0x3);
+//                 
+//            break;
+//
+//            case 3 : putvalue(ENTREE_AIR, 0x4);
+//                 
+//            break;
+//
+//            case 4 : putvalue(ENTREE_AIR, 0x5);
+//                 
+//            break;
+//
+//            default:;
+//           
+//        break;
+//            }
+            
+/*****************************************************************************************/
+
+    switch(this.VAL_CONS_TEMP_AVG)
+        {
+        case 0 : putvalue(VAL_CONS_TEMP_AVG, 0);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 7));
+                 
+        break;
+
+        case 1 : putvalue(VAL_CONS_TEMP_AVG, 1);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 7));
+                 
+        break;
+        
+        case 2 : putvalue(VAL_CONS_TEMP_AVG, 2);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 6));
+                 
+        break;
+
+        case 3 : putvalue(VAL_CONS_TEMP_AVG, 3);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 5));
+                 
+        break;
+
+        case 4 : putvalue(VAL_CONS_TEMP_AVG, 4);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 4));
+                 
+        break;
+
+        case 5 : putvalue(VAL_CONS_TEMP_AVG, 5);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 3));
+                
+        break;
+
+        case 6 : putvalue(VAL_CONS_TEMP_AVG, 6);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 2.5));
+                
+        break;
+
+        case 7 : putvalue(VAL_CONS_TEMP_AVG, 7);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 2));
+                 
+        break;
+
+        case 8 : putvalue(VAL_CONS_TEMP_AVG, 8);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 1.5));
+                 
+        break;
+
+        case 9 : putvalue(VAL_CONS_TEMP_AVG, 9);
+                 putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 1));
+                 
+        break;
+
+        case 0x0A : putvalue(VAL_CONS_TEMP_AVG, 10);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 - 0.5));
+                 
+        break;
+
+        case 0x0B : putvalue(VAL_CONS_TEMP_AVG, 11);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18));
+                 
+        break;
+        
+        case 0x0C : putvalue(VAL_CONS_TEMP_AVG, 12);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 0.5));
+                 
+        break;
+        
+        case 0x0D : putvalue(VAL_CONS_TEMP_AVG, 13);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 1));
+                 
+        break;
+        
+        case 0x0E : putvalue(VAL_CONS_TEMP_AVG, 14);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 1.5));
+                 
+        break;
+        
+        case 0x0F : putvalue(VAL_CONS_TEMP_AVG, 15);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 2));
+                 
+        break;
+        
+        case 0x10 : putvalue(VAL_CONS_TEMP_AVG, 16);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 2.5));
+                 
+        break;   
+        
+        case 0x11 : putvalue(VAL_CONS_TEMP_AVG, 17);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 3));
+                 
+        break;
+        
+        case 0x12 : putvalue(VAL_CONS_TEMP_AVG, 18);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 4));
+                 
+        break;
+        
+        case 0x13 : putvalue(VAL_CONS_TEMP_AVG, 19);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 5));
+                 
+        break;
+        
+        case 0x14 : putvalue(VAL_CONS_TEMP_AVG, 20);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 6));
+                 
+        break;
+        
+        case 0x15 : putvalue(VAL_CONS_TEMP_AVG, 21);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 7));
+                       
+                 
+        break;
+        
+        case 0x16 : putvalue(VAL_CONS_TEMP_AVG, 22);
+                    putvalue(VAL_CONS_TEMP_AVG_num, (getvalue(CONS_TEMP_CENT) + 18 + 7));
+                 
+        break;
+             
+        default:;
+        break;
+        }
+
+/*****************************************************************************************/
+ 
+      switch(this.ETAT_PULSEUR)
+        {
+        case 0 : putvalue(ETAT_PULSEUR, 0);
+                 
+        break;
+
+        case 1 : putvalue(ETAT_PULSEUR, 1);
+                 
+        break;
+        
+        case 2 : putvalue(ETAT_PULSEUR, 2);
+                 
+        break;
+
+        case 3 : putvalue(ETAT_PULSEUR, 3);
+                 
+        break;
+
+        case 4 : putvalue(ETAT_PULSEUR, 4);
+                 
+        break;
+
+        case 5 : putvalue(ETAT_PULSEUR, 5);
+                
+        break;
+
+        case 6 : putvalue(ETAT_PULSEUR, 6);
+                
+        break;
+
+        case 7 : putvalue(ETAT_PULSEUR, 7);
+                 
+        break;
+
+        case 8 : putvalue(ETAT_PULSEUR, 8);
+                 
+        break;
+
+        case 9 : putvalue(ETAT_PULSEUR, 9);
+                 
+        break;
+
+        default:;
+        break;
+        }
+    
+/*****************************************************************************************/
+        
+        switch(this.TYPAGE)
+            {
+            case 0 : putvalue(TYPAGE, "Leger");
+                 
+            break;
+
+            case 1 : putvalue(TYPAGE, "Normal");
+                 
+            break;
+        
+            case 2 : putvalue(TYPAGE, "Fort");
+                 
+            break;
+
+            case 3 : putvalue(TYPAGE, "Non utilise");
+                 
+            break;
+
+            default:;
+            break;
+            }
+            
+/*****************************************************************************************/
+ 
+        switch(this.DMD_PUSH_3NIV_S_CHAUF_ARD)
+            {
+            case 0 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARD, "no request");
+                 
+            break;
+
+            case 1 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARD, "level 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARD, "level 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARD, "level 3");
+                 
+            break;
+
+            default:;
+            break;
+            }
+                      
+/*****************************************************************************************/
+ 
+        switch(this.DMD_PUSH_3NIV_S_CHAUF_ARG)
+            {
+            case 0 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARG, "no request");
+                 
+            break;
+
+            case 1 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARG, "level 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARG, "level 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_PUSH_3NIV_S_CHAUF_ARG, "level 3");
+                 
+            break;
+
+            default:;
+            break;
+            }
+            
+/*****************************************************************************************/
+            
+            switch(this.DMD_PUSH_3NIV_VENTIL_S_ARD)
+            {
+            case 0 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARD, "no request");
+                 
+            break;
+
+            case 1 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARD, "level 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARD, "level 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARD, "level 3");
+                 
+            break;
+
+            default:;
+            break;
+            }
+            
+/*****************************************************************************************/
+            
+            switch(this.DMD_PUSH_3NIV_VENTIL_S_ARG)
+            {
+            case 0 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARG, "no request");
+                 
+            break;
+
+            case 1 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARG, "level 1");
+                 
+            break;
+        
+            case 2 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARG, "level 2");
+                 
+            break;
+
+            case 3 : putvalue(DMD_PUSH_3NIV_VENTIL_S_ARG, "level 3");
+                 
+            break;
+
+            default:;
+            break;
+            }
+            
+/*****************************************************************************************/
+        
+//       switch(this.ETAT_REAR)
+//            {
+//            case 0 : putvalue(ETAT_REAR, 0x1);                   
+//
+//            break;
+//
+//            case 1 : putvalue(ETAT_REAR, 0x2);
+//              
+//            break;
+//        
+//            case 2 : putvalue(ETAT_REAR, 0x3);               
+//                 
+//            break;
+//
+//            case 3 : putvalue(ETAT_REAR, 0x4);
+//                 
+//            break;
+//
+//            default:;
+//            
+//        break;
+//            }   
+            
+/*****************************************************************************************/
+        
+            
+            
+            
+}
+
+
+on message HS4_ETAT_PUSH_PHYS
+{
+  
+  if (this.DMDP_TEMP_AVD_MOINS_PHYS == 1)
+            {
+            putvalue(DMDP_TEMP_AVD_MOINS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_TEMP_AVD_MOINS_PHYS, 0);
+            }
+
+
+    if (this.DMDP_TEMP_AVD_PLUS_PHYS == 1)
+            {
+            putvalue(DMDP_TEMP_AVD_PLUS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_TEMP_AVD_PLUS_PHYS, 0);
+            }
+
+
+  switch(this.DMDP_NIVEAU_TEMP_AVG_PHYS)
+        {
+        case 0 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 0);
+                 
+        break;
+
+        case 1 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 1);
+                 
+        break;
+        
+        case 2 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 2);
+                 
+        break;
+
+        case 3 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 3);
+                 
+        break;
+
+        case 4 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 4);
+                 
+        break;
+
+        case 5 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 5);
+                
+        break;
+
+        case 6 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 6);
+                
+        break;
+
+        case 7 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 7);
+                 
+        break;
+
+        case 8 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 8);
+                 
+        break;
+      
+        case 9 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 9);
+                 
+        break;
+
+        case 10 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 10);
+                 
+        break;
+        
+        case 11 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 11);
+                 
+        break;
+
+        case 12 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 12);
+                 
+        break;
+
+        case 13 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 13);
+                 
+        break;
+
+        case 14 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 14);
+                
+        break;
+
+        case 15 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 15);
+                
+        break;
+
+        case 16 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 16);
+                 
+        break;
+      
+        case 17 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 17);
+                
+        break;
+
+        case 18 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 18);
+                
+        break;
+
+        case 19 : putvalue(DMDP_NIVEAU_TEMP_AVG_PHYS, 19);
+                 
+        break;
+      
+      
+        }
+            
+    if (this.DMDP_TEMP_AVG_MOINS_PHYS == 1)
+            {
+            putvalue(DMDP_TEMP_AVG_MOINS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_TEMP_AVG_MOINS_PHYS, 0);
+            }
+
+
+    if (this.DMDP_TEMP_AVG_PLUS_PHYS == 1)
+            {
+            putvalue(DMDP_TEMP_AVG_PLUS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_TEMP_AVG_PLUS_PHYS, 0);
+            }
+
+
+    if (this.DMDP_VISIBILITE_PHYS == 1)
+            {
+            putvalue(DMDP_VISIBILITE_PHYS, 1);            
+            }
+    else
+            {     
+            putvalue(DMDP_VISIBILITE_PHYS, 0);
+            }
+
+
+      switch(this.DMDP_NIVEAU_PULSEUR_AV_PHYS)
+        {
+        case 0 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 0);
+                 
+        break;
+
+        case 1 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 1);
+                 
+        break;
+        
+        case 2 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 2);
+                 
+        break;
+
+        case 3 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 3);
+                 
+        break;
+
+        case 4 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 4);
+                 
+        break;
+
+        case 5 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 5);
+                
+        break;
+
+        case 6 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 6);
+                
+        break;
+
+        case 7 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 7);
+                 
+        break;
+
+        case 8 : putvalue(DMDP_NIVEAU_PULSEUR_AV_PHYS, 8);
+                 
+
+        default:;
+        break;
+        }
+
+
+    if (this.DMDP_CHGT_CHAUF_PARE_BRISE == 1)
+            {
+            putvalue(DMDP_CHGT_CHAUF_PARE_BRISE, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_CHGT_CHAUF_PARE_BRISE, 0);
+            }
+
+
+    if (this.DMDP_AUTO_PHYS == 1)
+            {
+            putvalue(DMDP_AUTO_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AUTO_PHYS, 0);
+            }
+
+            
+    if (this.BTNPSD_QUICKSTRTCMFT == 1)
+            {
+            putvalue(BTNPSD_QUICKSTRTCMFT, 1);
+            }
+    else
+            {     
+            putvalue(BTNPSD_QUICKSTRTCMFT, 0);
+            }
+
+
+    if (this.DMDP_AC_PHYS == 1)
+            {
+            putvalue(DMDP_AC_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AC_PHYS, 0);
+            }
+
+
+    if (this.REQ_HEATING_STRWHL == 1)
+            {
+            putvalue(REQ_HEATING_STRWHL, 1);
+            }
+    else
+            {     
+            putvalue(REQ_HEATING_STRWHL, 0);
+            }
+
+
+    if (this.DEFAUT_MOLETTE_PULS_AV == 1)
+            {
+            putvalue(DEFAUT_MOLETTE_PULS_AV, 1);
+            }
+    else
+            {     
+            putvalue(DEFAUT_MOLETTE_PULS_AV, 0);
+            }
+
+
+    if (this.DEFAUT_MOLETTE_TEMP_AVD == 1)
+            {
+            putvalue(DEFAUT_MOLETTE_TEMP_AVD, 1);
+            }
+    else
+            {     
+            putvalue(DEFAUT_MOLETTE_TEMP_AVD, 0);
+            }
+
+
+    if (this.DMDP_AC_MAX_PHYS == 1)
+            {
+            putvalue(DMDP_AC_MAX_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AC_MAX_PHYS, 0);
+            }
+
+
+    if (this.DEFAUT_MOLETTE_TEMP_AVG == 1)
+            {
+            putvalue(DEFAUT_MOLETTE_TEMP_AVG, 1);
+            }
+    else
+            {     
+            putvalue(DEFAUT_MOLETTE_TEMP_AVG, 0);
+            }
+
+
+
+    if (this.DMDP_3LVL_HEAT_SEAT_FL == 1)
+            {
+            putvalue(DMDP_3LVL_HEAT_SEAT_FL, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_HEAT_SEAT_FL, 0);
+            }
+
+
+    if (this.DMDP_3LVL_HEAT_SEAT_FR == 1)
+            {
+            putvalue(DMDP_3LVL_HEAT_SEAT_FR, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_HEAT_SEAT_FR, 0);
+            }
+
+
+
+    if (this.DMDP_3LVL_FAN_SEAT_FL == 1)
+            {
+            putvalue(DMDP_3LVL_FAN_SEAT_FL, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_FAN_SEAT_FL, 0);
+            }
+
+            
+    if (this.DMDP_3LVL_FAN_SEAT_FR == 1)
+            {
+            putvalue(DMDP_3LVL_FAN_SEAT_FR, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_FAN_SEAT_FR, 0);
+            }            
+            
+            
+    if (this.DMDP_AUTO_FORT_PHYS == 1)
+            {
+            putvalue(DMDP_AUTO_FORT_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AUTO_FORT_PHYS, 0);
+            }
+
+
+    if (this.DMDP_AUTO_LEGER_PHYS == 1)
+            {
+            putvalue(DMDP_AUTO_LEGER_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AUTO_LEGER_PHYS, 0);
+            }
+
+
+    if (this.DMDP_AUTO_NORMAL_PHYS == 1)
+            {
+            putvalue(DMDP_AUTO_NORMAL_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_AUTO_NORMAL_PHYS, 0);
+            }
+
+
+    if (this.DMDP_CHGT_DEGIVRAGE_PHYS == 1)
+            {
+            putvalue(DMDP_CHGT_DEGIVRAGE_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_CHGT_DEGIVRAGE_PHYS, 0);
+            }
+
+
+    if (this.DMDP_CHGT_NIVEAU_SLIDER_PHYS == 1)
+            {
+            putvalue(DMDP_CHGT_NIVEAU_SLIDER_PHYS, 1);            
+            }
+    else
+            {     
+            putvalue(DMDP_CHGT_NIVEAU_SLIDER_PHYS, 0);
+            }
+
+
+    if (this.DMDP_DIST_AVD_AERATION_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVD_AERATION_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVD_AERATION_PHYS, 0);
+            }
+
+
+    if (this.DMDP_DIST_AVD_DEGI_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVD_DEGI_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVD_DEGI_PHYS, 0);
+            }
+
+
+    if (this.DMDP_DIST_AVD_PIED_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVD_PIED_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVD_PIED_PHYS, 0);
+            }
+
+            
+    if (this.DMDP_DIST_AVG_AERATION_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVG_AERATION_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVG_AERATION_PHYS, 0);
+            }
+
+
+    if (this.DMDP_DIST_AVG_DEGI_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVG_DEGI_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVG_DEGI_PHYS, 0);
+            }
+
+
+    if (this.DMDP_DIST_AVG_PIED_PHYS == 1)
+            {
+            putvalue(DMDP_DIST_AVG_PIED_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_DIST_AVG_PIED_PHYS, 0);
+            }
+
+
+    if (this.DMDP_ENTREE_AIR_PHYS == 1)
+            {
+            putvalue(DMDP_ENTREE_AIR_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_ENTREE_AIR_PHYS, 0);
+            }
+
+
+    if (this.DMDP_MONO_PHYS == 1)
+            {
+            putvalue(DMDP_MONO_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_MONO_PHYS, 0);
+            }
+
+
+    if (this.DMDP_OFF_AV_PHYS == 1)
+            {
+            putvalue(DMDP_OFF_AV_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_OFF_AV_PHYS, 0);
+            }
+
+
+    if (this.DMDP_PULSEUR_AV_MOINS_PHYS == 1)
+            {
+            putvalue(DMDP_PULSEUR_AV_MOINS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_PULSEUR_AV_MOINS_PHYS, 0);
+            }
+
+
+    if (this.DMDP_PULSEUR_AV_PLUS_PHYS == 1)
+            {
+            putvalue(DMDP_PULSEUR_AV_PLUS_PHYS, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_PULSEUR_AV_PLUS_PHYS, 0);
+            }            
+            
+            
+//    if (this.DMDP_NIVEAU_TEMP_AVD_PHYS == 1)
+//            {
+//            putvalue(DMDP_NIVEAU_TEMP_AVD_PHYS, 1);
+//            }
+//    else
+//            {     
+//            putvalue(DMDP_NIVEAU_TEMP_AVD_PHYS, 0);
+//            }
+
+
+    if (this.ENT_PUSH_SAM == 1)
+            {
+            putvalue(ENT_PUSH_SAM, 1);
+            }
+    else
+            {     
+            putvalue(ENT_PUSH_SAM, 0);
+            }
+
+
+
+    if (this.HW_LED_HADC_PUSH == 1)
+            {
+            putvalue(HW_LED_HADC_PUSH, 1);
+            }
+    else
+            {     
+            putvalue(HW_LED_HADC_PUSH, 0);
+            }
+
+            
+    if (this.DMD_PULSEUR_PLUS == 1)
+            {
+            putvalue(DMD_PULSEUR_PLUS, 1);
+            }
+    else
+            {     
+            putvalue(DMD_PULSEUR_PLUS, 0);
+            }
+            
+            
+    if (this.DMD_PULSEUR_MOINS == 1)
+            {
+            putvalue(DMD_PULSEUR_MOINS, 1);
+            }
+    else
+            {     
+            putvalue(DMD_PULSEUR_MOINS, 0);
+            }
+            
+                        
+    if (this.DMD_AUTO == 1)
+            {
+            putvalue(DMD_AUTO, 1);
+            }
+    else
+            {     
+            putvalue(DMD_AUTO, 0);
+            }
+            
+            
+    if (this.DMD_TEMP_MOINS == 1)
+            {
+            putvalue(DMD_TEMP_MOINS, 1);
+            }
+    else
+            {     
+            putvalue(DMD_TEMP_MOINS, 0);
+            }
+            
+            
+    if (this.DMD_TEMP_PLUS == 1)
+            {
+            putvalue(DMD_TEMP_PLUS, 1);
+            }
+    else
+            {     
+            putvalue(DMD_TEMP_PLUS, 0);
+            }
+      
+    if (this.DMDP_3LVL_HEAT_SEAT_RR == 1)
+            {
+            putvalue(DMDP_3LVL_HEAT_SEAT_RR, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_HEAT_SEAT_RR, 0);
+            }
+
+
+    if (this.DMDP_3LVL_HEAT_SEAT_RL == 1)
+            {
+            putvalue(DMDP_3LVL_HEAT_SEAT_RL, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_HEAT_SEAT_RL, 0);
+            }
+
+
+    if (this.DMDP_3LVL_FAN_SEAT_RL == 1)
+            {
+            putvalue(DMDP_3LVL_FAN_SEAT_RL, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_FAN_SEAT_RL, 0);
+            }
+
+            
+    if (this.DMDP_3LVL_FAN_SEAT_RR == 1)
+            {
+            putvalue(DMDP_3LVL_FAN_SEAT_RR, 1);
+            }
+    else
+            {     
+            putvalue(DMDP_3LVL_FAN_SEAT_RR, 0);
+            }
+    
+                       
+                     
+       switch(this.DMDP_NIVEAU_PULSEUR_ARG)
+        {
+        case 0 : putvalue(DMDP_NIVEAU_PULSEUR_ARG, 0);
+                 
+        break;
+
+        case 1 : putvalue(DMDP_NIVEAU_PULSEUR_ARG, 1);
+                 
+        break;
+        
+        case 2 : putvalue(DMDP_NIVEAU_PULSEUR_ARG, 2);
+                 
+        break;
+
+        case 3 : putvalue(DMDP_NIVEAU_PULSEUR_ARG, 3);
+                 
+        break;
+
+        case 4 : putvalue(DMDP_NIVEAU_PULSEUR_ARG, 4);
+                 
+        break;
+                 
+
+        default:;
+        break;
+        }
+        
+        
+                     
+   if (this.HADC_PUSH_STATE == 1)
+            {
+            putvalue(HADC_PUSH_STATE, 1);
+            }
+    else
+            {     
+            putvalue(HADC_PUSH_STATE, 0);
+            }
+
+        
+}
+on envVar bt_mise_en_veille 
+{
+    if(getvalue(this) == 1)
+        {
+        putvalue(ETAT_PRINCIP_SEV, 0x00);
+        settimer(arret_contact,500);
+        }
+
+}
+
+on envVar bt_reveil
+{
+
+
+    if(getvalue(this) == 1)
+        {
+        putvalue(PHASE_VIE, 0x03);
+        
+        settimer(reveil, 200);
+        }
+
+}
+
+on message HS4_SUPERVISION_FMUX
+{
+
+/*****************************************************************************************/
+
+
+
+    if (this.BIT_NERR == 1)
+            {
+            putvalue(BIT_NERR, "D faut pr sent");
+            }
+    else
+            {     
+            putvalue(BIT_NERR, "Pas de d faut");
+            }
+
+
+/*****************************************************************************************/
+
+
+
+    if (this.ETAT_NM == 1)
+            {
+            putvalue(ETAT_NM, "Active");
+            }
+    else
+            {     
+            putvalue(ETAT_NM, "Inactive");
+            }
+
+
+
+
+/*****************************************************************************************/
+
+
+
+    if (this.PERTE_COM == 1)
+            {
+            putvalue(PERTE_COM, "D faut pr sent");
+            }
+    else
+            {     
+            putvalue(PERTE_COM, "Pas de d faut");
+            }
+
+
+/*****************************************************************************************/
+
+
+    putvalue(C_DEFAUT_N_AS,this.C_DEFAUT_N_AS);
+    putvalue(C_DEFAUT_BUSOFF,this.C_DEFAUT_BUSOFF);
+    putvalue(C_DEFAUT_PERTE_COM,this.C_DEFAUT_PERTE_COM);
+    putvalue(C_DEFAUT_NERR,this.C_DEFAUT_NERR);
+    
+
+
+/*****************************************************************************************/
+
+
+
+    if (this.UCE_ABS_FMUX_1 == 0x00)
+            {
+            putvalue(UCE_ABS_FMUX_1, "Pas de calculateur absent");
+            }
+
+
+    else if (this.UCE_ABS_FMUX_1 == 0x12)
+            {     
+            putvalue(UCE_ABS_FMUX_1, "BSI absente");
+            }
+
+    else 
+            {     
+            putvalue(UCE_ABS_FMUX_1, "Non utilis ");
+            }
+
+/*****************************************************************************************/
+
+
+
+}
+
+
+
+
+on busOff
+{
+
+resetcan();
+
+}
+on errorActive
+{
+
+resetcan();
+
+}
+on errorPassive
+{
+
+resetcan();
+
+}
+on warningLimit
+{
+
+resetcan();
+
+}
+
+
+calcul_timing_tps_filtrage ()
+{
+        result = y-x;
+        writeLineEx(fenetre,0,"Temps filtrage : %.02f ms\n", y-x);
+}
